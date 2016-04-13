@@ -12,11 +12,11 @@ has, etc!
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
-### Developing on BOCBOT
+### Developing on bocbot
 1. Clone the repo
 2. Make your changes 
 3. Push your changes back
---* This causes a Travis CI to start a build and publish your changes to Heroku
+  * This causes a Travis CI to start a build and publish your changes to Heroku
 
 ### Running bocbot Locally
 
