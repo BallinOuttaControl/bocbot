@@ -10,8 +10,8 @@
 
 module.exports = (robot) ->
 
-  robot.hear /badger/i, (res) ->
-    res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
+  # robot.hear /badger/i, (res) ->
+  #   res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
   
   robot.respond /open the (.*) door/i, (res) ->
     doorType = res.match[1]
@@ -21,7 +21,7 @@ module.exports = (robot) ->
       res.reply "Opening #{doorType} doors"
   
   robot.hear /I like pie/i, (res) ->
-    res.emote "makes a freshly baked pie"
+    res.emote "I like pie too"
   
   # lulz = ['lol', 'rofl', 'lmao']
   
