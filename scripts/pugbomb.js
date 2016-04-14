@@ -5,7 +5,8 @@ module.exports = function(robot){
 		'Nope.  Nobody needs to see that many pugs.',
 		'Why do you think we all need to see {{number}} pugs?',
 		'No pugs for you!',
-		'{{number}} pugs... {{number}} PUGS??  Absolutely not.'
+		'{{number}} pugs... {{number}} PUGS??  Absolutely not.',
+		'http://i.imgur.com/cUJd5aO.jpg'
 	];
 
 	robot.respond(/pug bomb (.*)/i, function(res){
