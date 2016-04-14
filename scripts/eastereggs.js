@@ -33,7 +33,7 @@ module.exports = function(robot){
 		if (sodasHad > 4)
 			res.reply("I think I've had too many.  I need to sleep it off first.");
 		else{
-			res.reply("Sure thing!  _chugs soda_");
+			res.reply("Sure thing!  _chugs beer_");
 			robot.brain.set('totalSodasHad', sodasHad + 1);
 		}
 	});
