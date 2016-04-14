@@ -28,17 +28,17 @@ module.exports = function(robot){
 		}, 1000 * 15);
 	});
 
-	robot.respond(/(have|drink|consume) soda/i, function(){
+	robot.respond(/(have|drink|consume)(.*) beer/i, function(){
 		var sodasHad = robot.brain.get('totalSodasHad') * 1 || 0;
 		if (sodasHad > 4)
-			res.reply("I'm too fizzy.  I need to sleep it off first.");
+			res.reply("I think I've had too many.  I need to sleep it off first.");
 		else{
 			res.reply("Sure thing!  _chugs soda_");
 			robot.brain.set('totalSodasHad', sodasHad + 1);
 		}
 	});
 
-	robot.respnd(/sleep it off/i, function(res){
+	robot.respond(/sleep it off/i, function(res){
 		robot.brain.set('totalSodasHad', 0);
 		res.reply('zzzzz');
 	});
