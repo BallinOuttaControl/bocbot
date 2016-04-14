@@ -29,7 +29,7 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/(have|drink|consume)(.*) beer/i, function(){
-		var sodasHad = robot.brain.get('totalSodasHad') * 1 || 0;
+		var sodasHad = robot.brain.get('totalBeersHad') * 1 || 0;
 		if (sodasHad > 4)
 			res.reply("I think I've had too many.  I need to sleep it off first.");
 		else{
@@ -39,7 +39,7 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/sleep it off/i, function(res){
-		robot.brain.set('totalSodasHad', 0);
+		robot.brain.set('totalBeersHad', 0);
 		res.reply('zzzzz');
 	});
 
