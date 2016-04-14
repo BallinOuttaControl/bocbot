@@ -10,6 +10,10 @@ module.exports = function(robot){
 		res.reply(thankYouResponses[index]);
 	});
 
+	robot.hear(/I like pie/i, function(res){
+		robot.emote('I like pie too');
+	});
+
 	robot.respond(/open the (.*) door/i, function(res){
 		var doorType = res.match[1];
 		if (doorType == 'pod bay')
@@ -18,23 +22,19 @@ module.exports = function(robot){
 			res.reply('Opening ' + doorType + ' doors.');
 	});
 
-	robot.hear(/I like pie/i, function(res){
-		robot.emote('I like pie too');
-	});
-
 	robot.respond(/(you are|you're)(.*) slow/i, function(res){
 		setTimeout(function(){
-			res.reply('Who you calling slow?');
+			res.reply('Who you callin\' slow?');
 		}, 1000 * 15);
 	});
 
 	robot.respond(/(have|drink|consume)(.*) beer/i, function(){
-		var sodasHad = robot.brain.get('totalBeersHad') * 1 || 0;
-		if (sodasHad > 4)
+		var beersHad = robot.brain.get('totalBeersHad') || 0;
+		if (beersHad > 4)
 			res.reply("I think I've had too many.  I need to sleep it off first.");
 		else{
 			res.reply("Sure thing!  _chugs beer_");
-			robot.brain.set('totalBeersHad', sodasHad + 1);
+			robot.brain.set('totalBeersHad', beersHad + 1);
 		}
 	});
 
