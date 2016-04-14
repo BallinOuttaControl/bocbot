@@ -9,19 +9,11 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
 module.exports = (robot) ->
-  
-  robot.respond /show users$/i, (msg) ->
-    response = ""
-
-    for own key, user of robot.brain.data.users
-      response += "#{user.id} #{user.name}"
-      response += " <#{user.email_address}>" if user.email_address
-      response += "\n"
 
   robot.hear /badger/i, (res) ->
     res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
   
-  robot.respond /open the (.*) doors/i, (res) ->
+  robot.respond /open the (.*) door/i, (res) ->
     doorType = res.match[1]
     if doorType is "pod bay"
       res.reply "I'm afraid I can't let you do that."
@@ -59,7 +51,7 @@ module.exports = (robot) ->
   robot.respond /you are a little slow/, (res) ->
     setTimeout () ->
       res.send "Who you calling 'slow'?"
-    , 60 * 1000
+    , 15 * 1000
   
   # annoyIntervalId = null
   
@@ -80,8 +72,7 @@ module.exports = (robot) ->
   #     annoyIntervalId = null
   #   else
   #     res.send "Not annoying you right now, am I?"
-  
-  
+
   robot.router.post '/hubot/chatsecrets/:room', (req, res) ->
     room   = req.params.room
     data   = JSON.parse req.body.payload
