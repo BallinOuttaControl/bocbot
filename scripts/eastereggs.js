@@ -5,9 +5,36 @@ module.exports = function(robot){
 		"No problem."
 	];
 
+	var affirmativeResponses = [
+		"Sure thing!",
+		"Okay"
+	];
+
+	var negativeResponses = [
+		"Nope",
+		"No"
+	];
+
+	function getRandomIndex(array){
+		!!array && return Math.floor(Math.random() * array.length);
+	}
+	function getThankyouResponse(){
+		var index = getRandomIndex(thankYouResponses);
+		return thankYouResponses[index];
+	}
+	function getAffirmativeResponse(){
+		var index = getRandomIndex(affirmativeResponses);
+		return affirmativeResponses[index];
+	}
+	function getNegativeResponse(){
+		var index = getRandomIndex(negativeResponses);
+		return affirmativeResponses[index];
+	}
+
 	robot.hear(/(thanks|thank you) bocbot/i, function(res){
-		var index = Math.floor(Math.random() * thankYouResponses.length);
-		res.reply(thankYouResponses[index]);
+		//var index = Math.floor(Math.random() * thankYouResponses.length);
+		//res.reply(thankYouResponses[index]);
+		res.reply(getThankyouResponse());
 	});
 
 	robot.hear(/I like pie/i, function(res){
@@ -33,7 +60,8 @@ module.exports = function(robot){
 		if (beersHad > 4)
 			res.reply("I think I've had too many.  I need to sleep it off first.");
 		else{
-			res.reply("Sure thing!  _chugs beer_");
+			var response = getAffirmativeResponse();
+			res.reply(response + ' _chugs beer_');
 			robot.brain.set('totalBeersHad', beersHad + 1);
 		}
 	});
