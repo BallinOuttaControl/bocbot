@@ -11,10 +11,10 @@ module.exports = function(robot){
 	});
 
 	robot.hear(/I like pie/i, function(res){
-		robot.emote('I like pie too');
+		robot.send('I like pie too');
 	});
 
-	robot.respond(/open the (.*) door/i, function(res){
+	robot.respond(/open (.*) door/i, function(res){
 		var doorType = res.match[1];
 		if (doorType == 'pod bay')
 			res.reply("I'm afraid I can't let you do that.");
@@ -28,7 +28,7 @@ module.exports = function(robot){
 		}, 1000 * 15);
 	});
 
-	robot.respond(/(have|drink|consume)(.*) beer/i, function(){
+	robot.respond(/(have|drink|consume)(.*) beer/i, function(res){
 		var beersHad = robot.brain.get('totalBeersHad') || 0;
 		if (beersHad > 4)
 			res.reply("I think I've had too many.  I need to sleep it off first.");
