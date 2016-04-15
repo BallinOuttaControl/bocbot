@@ -1,4 +1,4 @@
-// var _ = require('underscore');
+//var _ = require('underscore');
 
 module.exports = function(robot){
 
@@ -15,6 +15,20 @@ module.exports = function(robot){
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
+	robot.respond(/tell me (.*)'s userid/i, function(res){
+		if (robot.auth.isAdmin(res.message.user)){
+			var userName = res.match[1];
+			var user = robot.brain.usersForFuzzyName(userName);
+			return user[0].slack.id;
+		}
+	});
+
+	robot.respond(/give me my user object/i, function(res){
+		if (robot.auth.isAdmin(res.message.user)){
+			res.send(JSON.stringify(res.message.user, null, '\t'));
+		}
+	});
+
 	robot.respond(/give me (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
@@ -26,12 +40,6 @@ module.exports = function(robot){
 			res.send(JSON.stringify(user, null, '\t'));
 
 			//res.reply(userName + '\'s user ID is ' + );
-		}
-	});
-
-	robot.respond(/give me my user object/i, function(res){
-		if (robot.auth.isAdmin(res.message.user)){
-			res.send(JSON.stringify(res.message.user, null, '\t'));
 		}
 	});
 }
