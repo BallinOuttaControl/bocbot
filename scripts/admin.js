@@ -15,21 +15,18 @@ module.exports = function(robot){
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/userid of (.*)/i, function(res){
-		if (!robot.auth.isAdmin(res.message.user))
-			return;
-		
-		var users = {};
-		var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
-		var userName = res.match[1];
-		if (userName[0] === '@')
-			userName = userName.substring(1);
+	robot.respond(/user object of (.*)/i, function(res){
+		if (robot.auth.isAdmin(res.message.user)){
+			var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
+			var userName = res.match[1];
+			if (userName[0] === '@')
+				userName = userName.substring(1);
 
-		robot.http(apiUrl).get(function(err, response, body){
-			res.send(JSON.stringify(body));
-		});
+			var user = robot.brain.usersForFuzzyName(userName);
+			res.send(JSON.stringify(user));
 
-		//res.reply(userName + '\'s user ID is ' + );
+			//res.reply(userName + '\'s user ID is ' + );
+		}
 	});
 
 	robot.respond(/give me my user object/i, function(res){
