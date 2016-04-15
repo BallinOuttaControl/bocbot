@@ -48,7 +48,7 @@ module.exports = function(robot){
 
 	robot.respond(/who am i/, function(res){
 		if (robot.auth.isAdmin(res.message.user))
-			res.respond(res.message.user.name);
+			res.reply(res.message.user.name);
 	});
 
 }
