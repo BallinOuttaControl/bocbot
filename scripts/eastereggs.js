@@ -30,17 +30,24 @@ module.exports = function(robot){
 
 	robot.respond(/(have|drink|consume)(.*) beer/i, function(res){
 		var beersHad = robot.brain.get('totalBeersHad') || 0;
-		if (beersHad > 4)
-			res.reply("I think I've had too many.  I need to sleep it off first.");
+		if (beersHad > 4){
+			var lastBeerFrom = robot.brain.get('lastBeerFrom');
+			res.reply("I think I've had too many.  " + lastBeerFrom + " got me too drunk.  I need to sleep it off first.");
+		}
 		else{
 			res.reply("Sure thing!  _chugs beer_");
 			robot.brain.set('totalBeersHad', beersHad + 1);
+			robot.brain.set('lastBeerFrom', res.message.user.name);
 		}
 	});
 
 	robot.respond(/sleep it off/i, function(res){
 		robot.brain.set('totalBeersHad', 0);
 		res.reply('zzzzz');
+	});
+
+	robot.respond(/who am i/, function(res){
+		res.sendPrivate(res.message.user.name);
 	});
 
 }

@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = function(robot){
 
 	var rules = [
@@ -7,6 +9,11 @@ module.exports = function(robot){
 	];
 
 	robot.respond(/rules/i, function(res){
+		var response = '';
+		_.each(rules, function(rule){
+
+		});
+
 		res.send(rules.join('\n'));
 	});
 
