@@ -31,4 +31,10 @@ module.exports = function(robot){
 
 		//res.reply(userName + '\'s user ID is ' + );
 	});
+
+	robot.respond(/give me my user object/i, function(res){
+		if (robot.auth.isAdmin(res.message.user)){
+			res.send(JSON.stringify(res.message.user));
+		}
+	});
 }
