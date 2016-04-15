@@ -47,7 +47,8 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/who am i/, function(res){
-		res.sendPrivate(res.message.user.name);
+		if (robot.auth.isAdmin(res.message.user))
+			res.respond(res.message.user.name);
 	});
 
 }
