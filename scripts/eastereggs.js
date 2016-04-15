@@ -46,8 +46,8 @@ module.exports = function(robot){
 		res.reply('zzzzz');
 	});
 
-	robot.respond(/who am i/, function(res){
-		res.reply(res.message.user.name);
+	robot.respond(/whoami/i, function(res){
+		res.reply('You\'re ' + res.message.user.name);
 	});
 
 }
