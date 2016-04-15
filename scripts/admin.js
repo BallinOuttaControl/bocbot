@@ -10,12 +10,12 @@ module.exports = function(robot){
 			res.reply(response);
 	});
 
-	robot.respond(/userid/i, function(res){
+	robot.respond(/tell me my userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user))
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/userid (.*)/i, function(res){
+	robot.respond(/userid of (.*)/i, function(res){
 		if (!robot.auth.isAdmin(res.message.user))
 			return;
 		
