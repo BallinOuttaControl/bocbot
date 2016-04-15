@@ -3,7 +3,7 @@
 module.exports = function(robot){
 
 	robot.respond(/last beer/i, function(res){
-		var response = 'My last eber was from ' + robot.brain.get('lastBeerFrom');
+		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
 		if (robot.auth.isAdmin(res.message.user))
 			res.reply(response + '.  I\'ve had ' + robot.brain.get('totalBeersHad'));
 		else
