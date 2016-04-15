@@ -2,6 +2,10 @@ var _ = require('underscore');
 
 module.exports = function(robot){
 
+	function getUser(fuzzyUserName){
+		return _.first(robot.brain.usersForFuzzyName(fuzzyUserName));
+	}
+
 	robot.respond(/last beer/i, function(res){
 		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
 		if (robot.auth.isAdmin(res.message.user))
@@ -19,7 +23,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var userName = res.match[1];
 			var user = robot.brain.usersForFuzzyName(userName);
-			return _.first(user);
+			return _.first(user.id);
 		}
 	});
 
@@ -36,10 +40,10 @@ module.exports = function(robot){
 			if (userName[0] === '@')
 				userName = userName.substring(1);
 
-			var user = robot.brain.usersForFuzzyName(userName);
-			res.send(JSON.stringify(_.first(user), null, '\t'));
-
-			//res.reply(userName + '\'s user ID is ' + );
+			//var user = robot.brain.usersForFuzzyName(userName);
+			//res.send(JSON.stringify(_.first(user), null, '\t'));
+			var user = getUser(userName);
+			res.send(JSON.stringify(user, null, '\t'));
 		}
 	});
 }
