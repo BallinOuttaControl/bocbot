@@ -1,4 +1,4 @@
-//var _ = require('underscore');
+var _ = require('underscore');
 
 module.exports = function(robot){
 
@@ -19,7 +19,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var userName = res.match[1];
 			var user = robot.brain.usersForFuzzyName(userName);
-			return user[0].slack.id;
+			return _.first(user);
 		}
 	});
 
@@ -37,7 +37,7 @@ module.exports = function(robot){
 				userName = userName.substring(1);
 
 			var user = robot.brain.usersForFuzzyName(userName);
-			res.send(JSON.stringify(user, null, '\t'));
+			res.send(JSON.stringify(_.first(user), null, '\t'));
 
 			//res.reply(userName + '\'s user ID is ' + );
 		}
