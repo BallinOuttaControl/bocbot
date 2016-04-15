@@ -15,7 +15,7 @@ module.exports = function(robot){
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/user object of (.*)/i, function(res){
+	robot.respond(/give me (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
 			var userName = res.match[1];
@@ -23,7 +23,7 @@ module.exports = function(robot){
 				userName = userName.substring(1);
 
 			var user = robot.brain.usersForFuzzyName(userName);
-			res.send(JSON.stringify(user));
+			res.send(JSON.stringify(user, null, '\n'));
 
 			//res.reply(userName + '\'s user ID is ' + );
 		}
@@ -31,7 +31,7 @@ module.exports = function(robot){
 
 	robot.respond(/give me my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			res.send(JSON.stringify(res.message.user));
+			res.send(JSON.stringify(res.message.user, null, '\n'));
 		}
 	});
 }
