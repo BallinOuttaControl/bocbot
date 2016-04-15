@@ -15,19 +15,19 @@ module.exports = function(robot){
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/userid (.*)/i, function(res){
-		robot.auth.isAdmin(res.message.user) || return;
+	// robot.respond(/userid (.*)/i, function(res){
+	// 	robot.auth.isAdmin(res.message.user) || return;
 		
-		var users = {};
-		var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
-		var userName = res.match[1];
-		if (userName[0] === '@')
-			userName = userName.substring(1);
+	// 	var users = {};
+	// 	var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
+	// 	var userName = res.match[1];
+	// 	if (userName[0] === '@')
+	// 		userName = userName.substring(1);
 
-		robot.http(apiUrl).get(function(err, response, body){
-			res.send(JSON.stringify(body));
-		});
+	// 	robot.http(apiUrl).get(function(err, response, body){
+	// 		res.send(JSON.stringify(body));
+	// 	});
 
-		//res.reply(userName + '\'s user ID is ' + );
-	});
+	// 	//res.reply(userName + '\'s user ID is ' + );
+	// });
 }
