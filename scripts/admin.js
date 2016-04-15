@@ -23,7 +23,7 @@ module.exports = function(robot){
 				userName = userName.substring(1);
 
 			var user = robot.brain.usersForFuzzyName(userName);
-			res.send(JSON.stringify(user, null, '\n'));
+			res.send(JSON.stringify(user, null, '\t'));
 
 			//res.reply(userName + '\'s user ID is ' + );
 		}
@@ -31,7 +31,7 @@ module.exports = function(robot){
 
 	robot.respond(/give me my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			res.send(JSON.stringify(res.message.user, null, '\n'));
+			res.send(JSON.stringify(res.message.user, null, '\t'));
 		}
 	});
 }
