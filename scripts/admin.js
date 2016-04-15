@@ -6,6 +6,12 @@ module.exports = function(robot){
 		return _.first(robot.brain.usersForFuzzyName(fuzzyUserName));
 	}
 
+	function formatJson(obj, space){
+		if (!!space)
+			space = '\t';
+		return JSON.stringify(obj, null, space);
+	}
+
 	robot.respond(/last beer/i, function(res){
 		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
 		if (robot.auth.isAdmin(res.message.user))
@@ -22,28 +28,25 @@ module.exports = function(robot){
 	robot.respond(/tell me (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var userName = res.match[1];
-			var user = robot.brain.usersForFuzzyName(userName);
-			return _.first(user.id);
+			var user = getUser(userName);
+			return user.id;
 		}
 	});
 
 	robot.respond(/give me my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			res.send(JSON.stringify(res.message.user, null, '\t'));
+			res.send(formatJson(res.message.user));
 		}
 	});
 
 	robot.respond(/give me (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var apiUrl = robot.brain.get('slack-api-url') + 'users.list';
 			var userName = res.match[1];
 			if (userName[0] === '@')
 				userName = userName.substring(1);
 
-			//var user = robot.brain.usersForFuzzyName(userName);
-			//res.send(JSON.stringify(_.first(user), null, '\t'));
 			var user = getUser(userName);
-			res.send(JSON.stringify(user, null, '\t'));
+			res.send(formatJson(user));
 		}
 	});
 }
