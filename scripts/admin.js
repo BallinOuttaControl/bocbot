@@ -2,8 +2,10 @@ var _ = require('underscore');
 
 module.exports = function(robot){
 
-	function getUser(fuzzyUserName){
-		return _.first(robot.brain.usersForFuzzyName(fuzzyUserName));
+	function getUser(userName){
+		if (userName[0] === '@')
+			userName = userName.substring(1);
+		return robot.brain.userForName(userName);
 	}
 
 	function formatJson(obj, space){
@@ -29,7 +31,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var userName = res.match[1];
 			var user = getUser(userName);
-			return user.id;
+			return _.result(user, 'id');
 		}
 	});
 
@@ -41,11 +43,7 @@ module.exports = function(robot){
 
 	robot.respond(/give me (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var userName = res.match[1];
-			if (userName[0] === '@')
-				userName = userName.substring(1);
-
-			var user = getUser(userName);
+			var user = getUser(res.match[1]);
 			res.send(formatJson(user));
 		}
 	});
