@@ -29,7 +29,7 @@ module.exports = function(robot){
 
 	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var user = getUser(res.match[1]);
+			var user = getUser(res.match[2]);
 			if (!!user)
 				res.reply('No user by that name');
 			else
