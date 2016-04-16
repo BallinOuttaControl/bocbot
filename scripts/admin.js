@@ -22,16 +22,18 @@ module.exports = function(robot){
 			res.reply(response);
 	});
 
-	robot.respond(/tell me my userid/i, function(res){
+	robot.respond(/(tell me|what is|what(.*)s) my userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user))
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/tell me (.*)'s userid/i, function(res){
+	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var userName = res.match[1];
-			var user = getUser(userName);
-			return _.result(user, 'id');
+			var user = getUser(res.match[1]);
+			if (!!user)
+				res.reply('No user by that name');
+			else
+				res.reply(_.result(user, 'id'));
 		}
 	});
 
@@ -44,7 +46,10 @@ module.exports = function(robot){
 	robot.respond(/give me (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = getUser(res.match[1]);
-			res.send(formatJson(user));
+			if (!!user)
+				res.send('No user by that name');
+			else
+				res.send(formatJson(user));
 		}
 	});
 }
