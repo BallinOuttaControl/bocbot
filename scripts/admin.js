@@ -2,14 +2,6 @@ var _ = require('underscore');
 
 module.exports = function(robot){
 
-	function getUser(userName){
-		return robot.util.getUser(userName);
-	}
-
-	function formatJson(obj, space){
-		return robot.util.formatJson(obj, space);
-	}
-
 	robot.respond(/last beer/i, function(res){
 		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
 		if (robot.auth.isAdmin(res.message.user))
@@ -25,7 +17,7 @@ module.exports = function(robot){
 
 	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			// var user = getUser(res.match[2]);
+			// var user = robot.util.getUser(res.match[2]);
 			// if (!!user)
 			// 	res.reply('No user by that name');
 			// else
@@ -40,17 +32,17 @@ module.exports = function(robot){
 
 	robot.respond(/(give me|send me) my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			res.send(formatJson(res.message.user));
+			res.send(robot.util.formatJson(res.message.user));
 		}
 	});
 
 	robot.respond(/(give me|send me) (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var user = getUser(res.match[1]);
+			var user = robot.util.getUser(res.match[1]);
 			if (!!user)
 				res.send('No user by that name');
 			else
-				res.send(formatJson(user));
+				res.send(robot.util.formatJson(user));
 		}
 	});
 }

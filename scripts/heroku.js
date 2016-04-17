@@ -6,7 +6,7 @@ module.exports = function(robot){
 	robot.respond(/list heroku apps/i, function(res){
 		if (res.auth.isAdmin(res.message.user)){
 			heroku.apps().list(function(err, apps){
-				res.send(JSON.stringify(apps, null, '\t'));
+				res.send(robot.util.formatJson(apps));
 			});
 		}
 	});
@@ -14,7 +14,7 @@ module.exports = function(robot){
 	robot.respond(/get heroku info for (.*)/i, function(res){
 		if (res.auth.isAdmin(res.message.user)){
 			var app = heroku.apps(res.match[1]);
-			res.send(JSON.stringify(app, null, '\t'));
+			res.send(robot.util.formatJson(app));
 		}
 	});
 
