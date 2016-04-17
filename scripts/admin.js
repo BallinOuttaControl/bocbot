@@ -37,6 +37,7 @@ module.exports = function(robot){
 			var str = '';
 			_.each(match, function(m){
 				str += m + ' | ';
+				res.send(str);
 			});
 		}
 	});

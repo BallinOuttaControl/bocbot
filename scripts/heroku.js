@@ -4,8 +4,9 @@ var Heroku = require('heroku-client'),
 module.exports = function(robot){
 
 	robot.respond(/list heroku apps/i, function(res){
-		heroku.apps().list(function(err, app){
-			res.respond(JSON.stringify(app));
+		var app = heroku.apps('bocbot-dev');
+		app.info(function(err, app){
+			res.reply(JSON.stringify(app));
 		});
 	});
 
