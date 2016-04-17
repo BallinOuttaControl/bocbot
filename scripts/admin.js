@@ -3,15 +3,11 @@ var _ = require('underscore');
 module.exports = function(robot){
 
 	function getUser(userName){
-		if (userName[0] === '@')
-			userName = userName.substring(1);
-		return robot.brain.userForName(userName);
+		return robot.util.getUser(userName);
 	}
 
 	function formatJson(obj, space){
-		if (!!space)
-			space = '\t';
-		return JSON.stringify(obj, null, space);
+		return robot.util.formatJson(obj, space);
 	}
 
 	robot.respond(/last beer/i, function(res){
