@@ -12,7 +12,7 @@ module.exports = function(robot){
 
 	robot.respond(/list heroku apps/i, function(res){
 		heroku.apps().list(function(err, apps){
-			res.reply(JSON.stringify(apps));
+			res.reply(JSON.stringify(apps, null, '\t'));
 		});
 	});
 
