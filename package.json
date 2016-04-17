@@ -5,6 +5,7 @@
   "author": "Connor Kennedy",
   "description": "Boc's Hubot for Slack",
   "dependencies": {
+    "heroku-client": "^2.4.3",
     "hubot": "^2.18.0",
     "hubot-auth": "^1.2.0",
     "hubot-diagnostics": "0.0.1",
