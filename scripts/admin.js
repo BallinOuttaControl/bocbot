@@ -34,7 +34,10 @@ module.exports = function(robot){
 			// 	res.reply('No user by that name');
 			// else
 			// 	res.reply(_.result(user, 'id'));
-			robot.reply(formatJson(res.match));
+			var str = '';
+			_.each(match, function(m){
+				str += m + ' | ';
+			});
 		}
 	});
 
