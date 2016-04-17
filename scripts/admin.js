@@ -29,21 +29,22 @@ module.exports = function(robot){
 
 	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var user = getUser(res.match[2]);
-			if (!!user)
-				res.reply('No user by that name');
-			else
-				res.reply(_.result(user, 'id'));
+			// var user = getUser(res.match[2]);
+			// if (!!user)
+			// 	res.reply('No user by that name');
+			// else
+			// 	res.reply(_.result(user, 'id'));
+			robot.reply(formatJson(res.match));
 		}
 	});
 
-	robot.respond(/give me my user object/i, function(res){
+	robot.respond(/(give me|send me) my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			res.send(formatJson(res.message.user));
 		}
 	});
 
-	robot.respond(/give me (.*)'s user object/i, function(res){
+	robot.respond(/(give me|send me) (.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = getUser(res.match[1]);
 			if (!!user)
