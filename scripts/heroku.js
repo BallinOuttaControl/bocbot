@@ -13,8 +13,11 @@ module.exports = function(robot){
 
 	robot.respond(/get heroku info for (.*)/i, function(res){
 		if (res.auth.isAdmin(res.message.user)){
-			var app = heroku.apps(res.match[1]);
-			res.send(robot.util.formatJson(app));
+			var application = heroku.apps(res.match[1]);
+			application.info(function(err, app){
+				if (!!err)
+					res.send(robot.util.formatJson(app));
+			});
 		}
 	});
 
