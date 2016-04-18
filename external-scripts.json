@@ -7,5 +7,6 @@
   "hubot-maps",
   "hubot-redis-brain",
   "hubot-shipit",
-  "hubot-auth"
+  "hubot-auth",
+  "hubot-codinglove"
 ]
