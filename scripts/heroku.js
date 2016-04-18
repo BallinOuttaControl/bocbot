@@ -4,7 +4,7 @@ var Heroku = require('heroku-client'),
 module.exports = function(robot){
 
 	robot.respond(/list heroku apps/i, function(res){
-		if (res.auth.isAdmin(res.message.user)){
+		if (robot.auth.isAdmin(res.message.user)){
 			heroku.apps().list(function(err, apps){
 				res.send(robot.util.formatJson(apps));
 			});
@@ -12,7 +12,7 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/get heroku info for (.*)/i, function(res){
-		if (res.auth.isAdmin(res.message.user)){
+		if (robot.auth.isAdmin(res.message.user)){
 			var application = heroku.apps(res.match[1]);
 			application.info(function(err, app){
 				if (!!err)
@@ -22,7 +22,7 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/promote staging to production/i, function(res){
-		if (res.auth.isAdmin(res.message.user)){
+		if (robot.auth.isAdmin(res.message.user)){
 			heroku.post('/pipeline-promotions', {
 				pipeline: {
 					id: process.env.HEROKU_PIPELINE_ID

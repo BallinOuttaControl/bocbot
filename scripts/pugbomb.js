@@ -13,7 +13,7 @@ module.exports = function(robot){
 
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
 		var number = res.match[2] || 5;
-		if (res.auth.isAdmin(res.message.user)){
+		if (robot.auth.isAdmin(res.message.user)){
 			var pugmeUrl = 'http://pugme.herokuapp.com/bomb?count=';
 			res.http(pugmeUrl + number).get(function(err, res, body){
 				var pugs = JSON.parse(body).pugs,
