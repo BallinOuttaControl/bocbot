@@ -19,7 +19,7 @@ module.exports = function(robot){
 				var pugs = JSON.parse(body).pugs,
 					results = [];
 				_.each(pugs, function(pug){
-					results.push(msg.send(pug));
+					results.push(res.send(pug));
 				});
 			});
 			return results;
