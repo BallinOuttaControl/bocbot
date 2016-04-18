@@ -17,16 +17,11 @@ module.exports = function(robot){
 
 	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			// var user = robot.util.getUser(res.match[2]);
-			// if (!!user)
-			// 	res.reply('No user by that name');
-			// else
-			// 	res.reply(_.result(user, 'id'));
-			var str = '';
-			_.each(match, function(m){
-				str += m + ' | ';
-				res.send(str);
-			});
+			var user = robot.util.getUser(res.match[2]);
+			if (!!user)
+				res.reply('No user by name "' + user + '"');
+			else
+				res.reply(_.result(user, 'id'));
 		}
 	});
 
@@ -40,7 +35,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = robot.util.getUser(res.match[1]);
 			if (!!user)
-				res.send('No user by that name');
+				res.send('No user by name "' + user + '"');
 			else
 				res.send(robot.util.formatJson(user));
 		}
