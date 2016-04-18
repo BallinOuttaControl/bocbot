@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 module.exports = function(robot){
 
 	robot.respond(/last beer/i, function(res){
@@ -21,7 +19,7 @@ module.exports = function(robot){
 			if (!!user)
 				res.reply('No user by name "' + user + '"');
 			else
-				res.reply(_.result(user, 'id'));
+				res.reply(user.id);
 		}
 	});
 
