@@ -2,12 +2,19 @@ module.exports = function(robot){
 
 	var thankYouResponses = [
 		"You're welcome!",
-		"No problem."
+		"No problem",
+		"Not a problem",
+		"It's no bother",
+		"No problem at all",
+		"It's my pleasure",
+		"My pleasure",
+		"It's nothing",
+		"No, no.  Thank you!",
+		"Sure thing"
 	];
 
-	robot.hear(/(thanks|thank you) bocbot/i, function(res){
-		var index = Math.floor(Math.random() * thankYouResponses.length);
-		res.reply(thankYouResponses[index]);
+	robot.hear(/thank(s| you) bocbot/i, function(res){
+		res.random(thankYouResponses);
 	});
 
 	robot.hear(/I like pie/i, function(res){
