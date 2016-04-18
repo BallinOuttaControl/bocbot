@@ -15,7 +15,7 @@ module.exports = function(robot){
 
 	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var user = robot.util.getUser(res.match[2]);
+			var user = JSON.parse(robot.util.getUser(res.match[2]));
 			if (!!user)
 				res.reply('No user by name "' + user + '"');
 			else
