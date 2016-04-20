@@ -1,18 +1,20 @@
 {
   "name": "bocbot",
   "version": "0.0.0",
+  "license": "ISC",
   "private": true,
-  "author": "Connor Kennedy",
+  "author": "Connor Kennedy <cjtkennedy+bocbot@gmail.com>",
   "description": "BOC's Hubot for Slack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BallinOuttaControl/bocbot.git"
+    "url": "git+https://github.com/BallinOuttaControl/bocbot.git"
   },
   "bugs": {
     "url": "https://github.com/BallinOuttaControl/bocbot/issues"
   },
-  "homepage": "https://github.com/BallinOuttaControl/bocbot",
+  "homepage": "https://github.com/BallinOuttaControl/bocbot#readme",
   "dependencies": {
+    "express": "4.13.4",
     "heroku-client": "^2.4.3",
     "hubot": "^2.18.0",
     "hubot-auth": "^1.2.0",
@@ -27,12 +29,14 @@
     "hubot-scripts": "^2.16.2",
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "^3.4.2",
+    "swig": "^1.4.2",
     "underscore": "^1.8.3"
   },
   "engines": {
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "echo \"No tests here.\""
+    "test": "echo \"No tests here.\"",
+    "start": "bin/hubot -a slack"
   }
 }
