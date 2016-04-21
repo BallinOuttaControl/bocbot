@@ -22,14 +22,4 @@ module.exports = function(robot){
 			return '?' + ret.join('&');
 		}
 	};
-
-	robot.slack = {
-
-		baseApiUrl: 'https://slack.com/api/',
-
-		createApiUrl: function (suffix){
-			return robot.slack.baseApiUrl + suffix;
-		}
-	};
-
 }

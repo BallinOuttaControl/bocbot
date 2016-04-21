@@ -50,5 +50,4 @@ module.exports = function(robot){
 		else
 			res.reply('Sorry, only admins can do that');
 	});
-
 }
