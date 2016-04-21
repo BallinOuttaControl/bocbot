@@ -12,7 +12,7 @@
 	{% block body %}{% endblock %}
 
 	{# Partials #}
-	{% include "../partials/loader.html" %}
+	{% include "../partials/loader.swig" %}
 
 	{# Scripts #}
 	<script>

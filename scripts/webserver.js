@@ -8,8 +8,8 @@ module.exports = function(robot){
 	var staticFilesDir = path.join(__dirname, '../', 'web', 'static');
 	
 	// Configure robot.router
-	robot.router.engine('html', swig.renderFile);
-	robot.router.set('view engine', 'html');
+	robot.router.engine('swig', swig.renderFile);
+	robot.router.set('view engine', 'swig');
 	robot.router.set('views', path.join(__dirname, '../', 'web', 'views'));
 
 	// Serve static files
