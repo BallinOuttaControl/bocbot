@@ -52,7 +52,7 @@ module.exports = function(robot){
 
 			try{
 				robot.messageRoom(room, message);
-				res.reply('Hubot successfully said "' + message + '" in ' + room);
+				res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
 			}
 			catch (err){
 				res.reply('Invalid room name\n' + robot.util.formatJson(err));
