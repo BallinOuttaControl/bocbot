@@ -29,7 +29,6 @@
     "hubot-scripts": "^2.16.2",
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "^3.4.2",
-    "node-sass-middleware": "^0.9.8",
     "swig": "^1.4.2",
     "underscore": "^1.8.3"
   },
