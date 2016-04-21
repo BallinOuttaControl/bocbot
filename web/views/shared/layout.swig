@@ -22,9 +22,6 @@
 	<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
-	<!-- <script src="/static/js/libs/sweetalert.min.js"></script> -->
-
-	<!-- <script src="/static/js/app.js"></script> -->
 
 	{% block scripts %}{% endblock %}
 </body>

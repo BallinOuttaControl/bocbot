@@ -1,0 +1,5 @@
+window.app = {
+	showLoading: function(){
+		
+	}
+};

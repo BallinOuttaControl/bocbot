@@ -1,5 +1,5 @@
 var path = require('path'),
-	express = require('express')
+	express = require('express'),
 	swig = require('swig');
 
 module.exports = function(robot){
