@@ -29,13 +29,13 @@ module.exports = function(robot){
 				},
 				source: {
 					app: {
-						id: process.env.HEROKU_SOURCE_APP_ID
+						id: process.env.HEROKU_STAGING_APP_ID
 					}
 				},
 				targets: [
 					{
 						app: {
-							id: process.env.HEROKU_TARGET_APP_ID
+							id: process.env.HEROKU_PRODUCTION_APP_ID
 						}
 					}
 				]
