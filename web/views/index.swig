@@ -5,5 +5,3 @@
 	<img src="/static/img/hubot.png" alt="hubot" />
 </div>
 {% endblock %}
-
-{% block scripts %}{% endblock %}
