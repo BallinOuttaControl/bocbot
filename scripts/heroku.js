@@ -15,7 +15,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var application = heroku.apps(res.match[1]);
 			application.info(function(err, app){
-				if (!!err)
+				if (!err)
 					res.send(robot.util.formatJson(app));
 			});
 		}
