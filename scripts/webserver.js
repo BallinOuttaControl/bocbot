@@ -20,4 +20,9 @@ module.exports = function(robot){
 		res.render('index');
 	});
 
+	// Serve error page
+	robot.router.get('/error', function (req, res){
+		res.render('error');
+	});
+
 }
