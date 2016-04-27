@@ -9,13 +9,13 @@ module.exports = function(robot){
 		}
 	};
 
-	robot.respond(/current slack token/i, function(res){
+	robot.respond(/slack token/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			res.reply(process.env.HUBOT_SLACK_TOKEN);
 		}
 	});
 
-	robot.respond(/channel list please/i, function(res){
+	robot.respond(/channel list/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var data = {
 				token: process.env.HUBOT_SLACK_TOKEN,

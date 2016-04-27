@@ -10,7 +10,7 @@ module.exports = function(robot){
 			res.reply(response);
 	});
 
-	robot.respond(/(tell me|what is|what(.*)s) my userid/i, function(res){
+	robot.respond(/my user( )*id/i, function(res){
 		if (robot.auth.isAdmin(res.message.user))
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
@@ -19,19 +19,19 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = JSON.parse(robot.util.getUser(res.match[2]));
 			if (!!user)
-				res.reply('No user by name "' + user + '"');
+				res.reply('Sorry, I don\'t know of a user called ' + user);
 			else
 				res.reply(user.id);
 		}
 	});
 
-	robot.respond(/(give me|send me) my user object/i, function(res){
+	robot.respond(/my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			res.send(robot.util.formatJson(res.message.user));
 		}
 	});
 
-	robot.respond(/(give me|send me) (.*)'s user object/i, function(res){
+	robot.respond(/(.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = robot.util.getUser(res.match[1]);
 			if (!!user)

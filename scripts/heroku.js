@@ -1,5 +1,8 @@
 var Heroku = require('heroku-client'),
-	heroku = new Heroku({ token: process.env.HEROKU_API_KEY });
+	heroku = new Heroku({ token: process.env.HEROKU_API_KEY }),
+	pipelineID = process.env.HEROKU_PIPELINE_ID,
+	sourceAppID = process.env.HEROKU_STAGING_APP_ID,
+	prodAppID = process.env.HEROKU_PRODUCTION_APP_ID;
 
 module.exports = function(robot){
 
@@ -17,6 +20,8 @@ module.exports = function(robot){
 			application.info(function(err, app){
 				if (!err)
 					res.send(robot.util.formatJson(app));
+				else
+					res.reply('There was an error processing your request');
 			});
 		}
 	});
@@ -25,17 +30,17 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user)){
 			heroku.post('/pipeline-promotions', {
 				pipeline: {
-					id: process.env.HEROKU_PIPELINE_ID
+					id: pipelineID
 				},
 				source: {
 					app: {
-						id: process.env.HEROKU_STAGING_APP_ID
+						id: sourceAppID
 					}
 				},
 				targets: [
 					{
 						app: {
-							id: process.env.HEROKU_PRODUCTION_APP_ID
+							id: prodAppID
 						}
 					}
 				]
