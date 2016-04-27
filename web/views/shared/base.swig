@@ -3,6 +3,7 @@
 <head>
 	{% include '../partials/meta.swig' %}
 	<title>bocbot</title>
+	<link rel="shortcut icon" href="/static/img/favicon.ico" />
 
 	{% block style %}{% endblock %}
 </head>
