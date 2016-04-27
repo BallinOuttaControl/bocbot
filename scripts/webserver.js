@@ -4,13 +4,15 @@ var path = require('path'),
 
 module.exports = function(robot){
 
-	var compressCss = false;
-	var staticFilesDir = path.join(__dirname, '../', 'web', 'static');
+	var compressCss = false,
+		webDirPath = path.join(__dirname, '../', 'web'),
+		staticFilesDir = path.join(webDirPath, 'static'),
+		viewsDirPath = path.join(webDirPath, 'views');
 	
 	// Configure robot.router
 	robot.router.engine('swig', swig.renderFile);
 	robot.router.set('view engine', 'swig');
-	robot.router.set('views', path.join(__dirname, '../', 'web', 'views'));
+	robot.router.set('views', viewsDirPath);
 
 	// Serve static files
 	robot.router.use('/static', express.static(staticFilesDir));
