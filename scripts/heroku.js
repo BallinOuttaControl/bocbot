@@ -26,7 +26,7 @@ module.exports = function(robot){
 		}
 	});
 
-	robot.respond(/promote staging to production/i, function(res){
+	robot.respond(/promote (the )*stag(e|ing) to prod(uction)*/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			heroku.post('/pipeline-promotions', {
 				pipeline: {
