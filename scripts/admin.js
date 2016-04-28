@@ -15,10 +15,10 @@ module.exports = function(robot){
 			res.reply('Your user ID is ' + res.message.user.id);
 	});
 
-	robot.respond(/(tell me|what is|what(.*)s) (.*)'s userid/i, function(res){
+	robot.respond(/(.*)'s user( )*id/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = JSON.parse(robot.util.getUser(res.match[2]));
-			if (!!user)
+			if (!user && user !== null)
 				res.reply('Sorry, I don\'t know of a user called ' + user);
 			else
 				res.reply(user.id);
@@ -34,14 +34,14 @@ module.exports = function(robot){
 	robot.respond(/(.*)'s user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			var user = robot.util.getUser(res.match[1]);
-			if (!!user)
+			if (!user && user !== null)
 				res.send('No user by name "' + user + '"');
 			else
 				res.send(robot.util.formatJson(user));
 		}
 	});
 
-	robot.respond(/room id/i, function(res){
+	robot.respond(/room( )*id/i, function(res){
 		res.send(res.envelope.room);
 	});
 
@@ -50,13 +50,8 @@ module.exports = function(robot){
 			var room = res.match[1].trim(),
 				message = res.match[2].trim();
 
-			try{
-				robot.messageRoom(room, message);
-				res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
-			}
-			catch (err){
-				res.reply('Invalid room name\n' + robot.util.formatJson(err));
-			}
+			robot.messageRoom(room, message);
+			res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
 		}
 	});
 }
