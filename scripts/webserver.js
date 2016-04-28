@@ -21,6 +21,9 @@ module.exports = function(robot){
 	robot.router.get('/', function (req, res) {
 		res.render('index');
 	});
+	robot.router.get('/index', function(req, res){
+		res.redirect('/'); // Redirect '/index' to '/'
+	});
 
 	// Serve error page
 	robot.router.get('/error', function (req, res){
