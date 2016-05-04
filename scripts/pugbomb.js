@@ -11,18 +11,20 @@ module.exports = function(robot){
 		'http://i.imgur.com/cUJd5aO.jpg'
 	];
 
+	var pugBomberRole = 'pugbomber';
+
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
 		var number = res.match[2] || 5;
-		if (robot.auth.isAdmin(res.message.user)){
-			var pugmeUrl = 'http://pugme.herokuapp.com/bomb?count=';
-			res.http(pugmeUrl + number).get()(function(err, res, body){
-				var pugs = JSON.parse(body).pugs,
-					results = [];
+		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, pugBomberRole)){
+			var pugmeUrl = 'http://pugme.herokuapp.com/bomb?count=',
+				resultArr = [];
+			res.http(pugmeUrl + number).get()(function(err, results, body){
+				var pugs = JSON.parse(body).pugs;
 				_.each(pugs, function(pug){
-					results.push(res.send(pug));
+					resultArr.push(res.send(pug));
 				});
 			});
-			return results;
+			return resultArr;
 		}
 		else{
 			var index = Math.floor(Math.random() * pugBombReplies.length),
