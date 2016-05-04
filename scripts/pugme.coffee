@@ -1,3 +1,7 @@
+# Commands:
+#   bocbot pug me - Receive a pug
+#   bocbot how many pugs are there - Find out how many different pugs there are in the repository
+
 module.exports = (robot) ->
 
   robot.respond /pug me/i, (msg) ->

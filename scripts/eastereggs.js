@@ -1,3 +1,8 @@
+// Commands:
+//   bocbot whoami - Find out who you are
+//   bocbot have a beer - Make bocbot drink a beer
+//   bocbot sleep it off - Make bocbot sleep off his drunkenness
+
 module.exports = function(robot){
 
 	var thankYouResponses = [

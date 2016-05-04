@@ -1,3 +1,6 @@
+// Commands:
+//   bocbot pug bomb # - Bomb this channel with the specified number of pugs
+
 var _ = require('underscore');
 
 module.exports = function(robot){
@@ -32,5 +35,4 @@ module.exports = function(robot){
 			res.reply(reply);
 		}
 	});
-
 }

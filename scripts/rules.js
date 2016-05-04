@@ -1,3 +1,6 @@
+// Commands:
+//   bocbot rules - Make sure bocbot knows his place
+
 module.exports = function(robot){
 
 	var rules = [
