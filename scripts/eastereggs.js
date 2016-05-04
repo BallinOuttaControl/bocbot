@@ -23,12 +23,12 @@ module.exports = function(robot){
 	});
 
 	robot.hear(/I like pie/i, function(res){
-		robot.send('I like pie too');
+		res.send('I like pie too');
 	});
 
 	robot.respond(/open (.*) door/i, function(res){
 		var doorType = res.match[1];
-		if (doorType == 'pod bay')
+		if (doorType.replace('the ') == 'pod bay')
 			res.reply("I'm afraid I can't let you do that.");
 		else
 			res.reply('Opening ' + doorType + ' doors.');
