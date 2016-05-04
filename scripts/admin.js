@@ -27,7 +27,7 @@ module.exports = function(robot){
 
 	robot.respond(/my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			res.send(robot.util.formatJson(res.message.user));
+			res.send(robot.util.formatJson(res.message.user, true));
 		}
 	});
 
@@ -37,7 +37,7 @@ module.exports = function(robot){
 			if (!user && user !== null)
 				res.send('No user by name "' + user + '"');
 			else
-				res.send(robot.util.formatJson(user));
+				res.send(robot.util.formatJson(user, true));
 		}
 	});
 

@@ -4,8 +4,12 @@ module.exports = function(robot){
 
 	robot.util = {
 
-		formatJson: function(obj){
-			return JSON.stringify(obj, null, '\t');
+		formatJson: function(obj, pretty){
+			var jsonStr = JSON.stringify(obj, null, '\t');
+			if (!pretty)
+				return jsonStr;
+			else
+				return jsonStr.replace(/"/g, '');
 		},
 
 		getUser: function(userName){
@@ -14,12 +18,25 @@ module.exports = function(robot){
 			return robot.brain.userForName(userName);
 		},
 
-		toQueryString: function(o){
+		toQueryString: function(obj){
 			var ret = [];
-			_.each(o, function(value, key){
+			_.each(obj, function(value, key){
 				ret.push(key + '=' + value);
 			});
 			return '?' + ret.join('&');
+		},
+
+		random: function(o){
+
+			// If 'o' is array, return a random index
+			if (_.isArray(o)){
+				var index = Math.floor(Math.random() * o.length);
+				return o[index];
+			}
+
+			// If 'o' is a number, return a random number less than input number
+			if (_.isNumber(o))
+				return Math.floor(Math.random() * o)
 		}
 	};
 }
