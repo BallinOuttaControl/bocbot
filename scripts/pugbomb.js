@@ -5,34 +5,53 @@ var _ = require('underscore');
 
 module.exports = function(robot){
 
-	var pugBombReplies = [
-		'There will be no more of that.  Take your {{number}} pugs elsewhere.',
-		'Nope.  Nobody needs to see that many pugs.',
-		'Why do you think we all need to see {{number}} pugs?',
-		'No pugs for you!',
-		'{{number}} pugs... {{number}} PUGS??  Absolutely not.',
-		'http://i.imgur.com/cUJd5aO.jpg'
-	];
+	robot.pugbomb = {
+		pugmeUrl: 'http://pugme.herokuapp.com/bomb?count=',
+		pugBombLikelihood: 5, // Pug bomb will happen one in this many times
+		pugBomberRole: 'pugbomber',
+		limitedPugBomberRole: 'limitedpugbomber',
+		pugBombReplies: [
+			'There will be no more of that.  Take your {{number}} pugs elsewhere.',
+			'Nope.  Nobody needs to see that many pugs.',
+			'Why do you think we all need to see {{number}} pugs?',
+			'No pugs for you!',
+			'{{number}} pugs... {{number}} PUGS??  Absolutely not.',
+			'http://i.imgur.com/cUJd5aO.jpg'
+		],
 
-	var pugBomberRole = 'pugbomber';
+		doBomb: function(response, numPugs){
+			var responses = [];
+			response.http(robot.pugbomb.pugmeUrl + numPugs).get()(function(err, res, body){
+				var pugs = JSON.parse(body).pugs;
+				_.each(pugs, function(pug){
+					responses.push(response.send(pug));
+				});
+				return responses;
+			});
+		},
+
+		denyBomb: function(response, numPugs){
+			var index = Math.floor(Math.random() * robot.pugbomb.pugBombReplies.length),
+				reply = robot.pugbomb.pugBombReplies[index].replace(/{{number}}/g, numPugs);
+			response.reply(reply);
+		}
+	};
 
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
 		var number = res.match[2] || 5;
-		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, pugBomberRole)){
-			var pugmeUrl = 'http://pugme.herokuapp.com/bomb?count=',
-				resultArr = [];
-			res.http(pugmeUrl + number).get()(function(err, results, body){
-				var pugs = JSON.parse(body).pugs;
-				_.each(pugs, function(pug){
-					resultArr.push(res.send(pug));
-				});
-			});
-			return resultArr;
+		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.pugbomb.pugBomberRole)){ // User has full pugbomb permissons
+			return robot.pugbomb.doBomb(res, number);
 		}
-		else{
-			var index = Math.floor(Math.random() * pugBombReplies.length),
-				reply = pugBombReplies[index].replace(/{{number}}/g, number.trim());
-			res.reply(reply);
+		else if (robot.auth.hasRole(res.message.user, robot.pugbomb.limitedPugBomberRole)){ // User has limited pugbomb permissions
+			var random = robot.util.random(robot.pugbomb.pugBombLikelihood);
+			if (random === 0){
+				return robot.pugbomb.doBomb(res, number);
+			}
+			else
+				return robot.pugbomb.denyBomb(res, number);
+		}
+		else{ // User has no pugbomb permissions
+			return robot.pugbomb.denyBomb(res, number);
 		}
 	});
 }
