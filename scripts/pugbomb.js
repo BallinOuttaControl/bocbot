@@ -12,10 +12,9 @@ module.exports = function(robot){
 		pugBomberRole: 'pugbomber',
 		limitedPugBomberRole: 'limitedpugbomber',
 		pugBombReplies: [
-			'There will be no more of that.  Take your {{number}} pugs elsewhere.',
+			'Take your {{number}} pugs elsewhere.',
 			'Nope.  Nobody needs to see that many pugs.',
 			'Why do you think we all need to see {{number}} pugs?',
-			'No pugs for you!',
 			'{{number}} pugs... {{number}} PUGS??  Absolutely not.',
 			'http://i.imgur.com/cUJd5aO.jpg'
 		],
