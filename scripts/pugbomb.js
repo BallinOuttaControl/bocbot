@@ -1,4 +1,5 @@
 // Commands:
+//   bocbot pug bomb - Bomb this channel with 3 pugs
 //   bocbot pug bomb # - Bomb this channel with the specified number of pugs
 
 var _ = require('underscore');
