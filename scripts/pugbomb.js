@@ -38,7 +38,7 @@ module.exports = function(robot){
 	};
 
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
-		var number = res.match[2] || 5;
+		var number = res.match[2] || 3;
 		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.pugbomb.pugBomberRole)){ // User has full pugbomb permissons
 			return robot.pugbomb.doBomb(res, number);
 		}
