@@ -21,9 +21,9 @@ module.exports = function(robot){
 		],
 
 		doBomb: function(response, numPugs){
-			var responses = [];
 			response.http(robot.pugbomb.pugmeUrl + numPugs).get()(function(err, res, body){
-				var pugs = JSON.parse(body).pugs;
+				var pugs = JSON.parse(body).pugs,
+					responses = [];
 				_.each(pugs, function(pug){
 					responses.push(response.send(pug));
 				});
