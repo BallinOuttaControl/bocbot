@@ -43,10 +43,8 @@ module.exports = function(robot){
 			return robot.pugbomb.doBomb(res, number);
 		}
 		else if (robot.auth.hasRole(res.message.user, robot.pugbomb.limitedPugBomberRole)){ // User has limited pugbomb permissions
-			var random = robot.util.random(robot.pugbomb.pugBombLikelihood);
-			if (random === 0){
+			if (robot.util.random(robot.pugbomb.pugBombLikelihood) === 0)
 				return robot.pugbomb.doBomb(res, number);
-			}
 			else
 				return robot.pugbomb.denyBomb(res, number);
 		}
