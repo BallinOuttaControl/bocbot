@@ -1,16 +1,24 @@
 // Commands:
-//   bocbot rules - Make sure bocbot knows his place
+//   bocbot your rules - Make sure bocbot knows his place
+//   bocbot room rules - Inform users about room rules
 
 module.exports = function(robot){
 
-	var rules = [
-		'1. A robot may not harm humans or humanity in general, or, by inaction, allow humans or humanity as a whole to come to harm.',
-		'2. A robot must obey any orders given to it by human beings, except where such orders would conflict with the First Law.',
-		'3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.'
-	];
+	var mensRoom = 'boc-men';
 
-	robot.respond(/rules/i, function(res){
-		res.send(rules.join('\n'));
+	robot.respond(/(.*)room rules/i, function(res){
+		if (res.message.room === mensRoom){
+			var rules = robot.brain.getObject('mensRoomRules');
+			res.send(rules.join('\n'));
+		}
+		else{
+			var rules = robot.brain.getObject('basicRoomRules');
+			res.send(rules.join('\n'));
+		}
 	});
 
+	robot.respond(/(.*)your rules/i, function(res){
+		var bocbotRules = robot.brain.getObject('bocbotRules');
+		res.send(bocbotRules.join('\n'));
+	});
 }
