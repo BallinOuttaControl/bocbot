@@ -4,10 +4,8 @@
 
 module.exports = function(robot){
 
-	var mensRoom = 'boc-men';
-
 	robot.respond(/(.*)room rules/i, function(res){
-		if (res.message.room === mensRoom){
+		if (res.message.room === robot.brain.get('mensRoom')){
 			var rules = robot.brain.getObject('mensRoomRules');
 			res.send(rules.join('\n'));
 		}
