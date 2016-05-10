@@ -4,6 +4,5 @@
   "hubot-heroku-keepalive",
   "hubot-maps",
   "hubot-redis-brain",
-  "hubot-auth",
-  "hubot-codinglove"
+  "hubot-auth"
 ]
