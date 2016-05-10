@@ -4,8 +4,12 @@ module.exports = function(robot){
 
 	robot.util = {
 
+		params: {
+			jsonSpace: '\t'
+		}
+
 		formatJson: function(obj, pretty){
-			var jsonStr = JSON.stringify(obj, null, '\t');
+			var jsonStr = JSON.stringify(obj, null, this.params.jsonSpace);
 			if (!pretty)
 				return jsonStr;
 			else
@@ -21,7 +25,7 @@ module.exports = function(robot){
 		toQueryString: function(obj){
 			var ret = [];
 			_.each(obj, function(value, key){
-				ret.push(key + '=' + value);
+				ret.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
 			});
 			return '?' + ret.join('&');
 		},
