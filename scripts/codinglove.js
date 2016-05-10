@@ -25,12 +25,11 @@ module.exports = function(robot){
 				}
 
 				var caption = self.getText(body);
+				var imgUrl = self.getImage(body);
 
 				// If image url is from 'i.minus.com', do the request again because that site no longer works
-				if (caption.contains('i.minus.com'))
+				if (imgUrl.contains('i.minus.com'))
 					return self.send(response);
-
-				var imgUrl = self.getImage(body);
 
 				response.send(caption[0].toUpperCase() + caption.substring(1) + '\n' + imgUrl);
 			});
