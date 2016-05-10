@@ -6,7 +6,7 @@ module.exports = function(robot){
 
 		params: {
 			jsonSpace: '\t'
-		}
+		},
 
 		formatJson: function(obj, pretty){
 			var jsonStr = JSON.stringify(obj, null, this.params.jsonSpace);
