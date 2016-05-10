@@ -14,6 +14,7 @@
   },
   "homepage": "https://github.com/BallinOuttaControl/bocbot#readme",
   "dependencies": {
+    "cheerio": "^0.20.0",
     "express": "4.13.4",
     "heroku-client": "^2.4.3",
     "hubot": "^2.18.0",
