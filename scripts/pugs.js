@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 module.exports = function(robot){
 
-	robot.pugbomb = {
+	robot.pugs = {
 		pugmeUrl: 'http://pugme.herokuapp.com/bomb?count=',
 		pugBombLikelihood: 5, // Pug bomb will happen one in this many times
 		pugBomberRole: 'pugbomber',
@@ -20,7 +20,7 @@ module.exports = function(robot){
 		],
 
 		doBomb: function(response, numPugs){
-			response.http(robot.pugbomb.pugmeUrl + numPugs).get()(function(err, res, body){
+			response.http(this.pugs.pugmeUrl + numPugs).get()(function(err, res, body){
 				var pugs = JSON.parse(body).pugs,
 					responses = [];
 				_.each(pugs, function(pug){
@@ -31,25 +31,25 @@ module.exports = function(robot){
 		},
 
 		denyBomb: function(response, numPugs){
-			var index = Math.floor(Math.random() * robot.pugbomb.pugBombReplies.length),
-				reply = robot.pugbomb.pugBombReplies[index].replace(/{{number}}/g, numPugs);
+			var index = Math.floor(Math.random() * this.pugs.pugBombReplies.length),
+				reply = this.pugs.pugBombReplies[index].replace(/{{number}}/g, numPugs);
 			response.reply(reply);
 		}
 	};
 
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
 		var number = res.match[2] || 3;
-		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.pugbomb.pugBomberRole)){ // User has full pugbomb permissons
-			return robot.pugbomb.doBomb(res, number);
+		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.pugs.pugBomberRole)){ // User has full pugbomb permissons
+			return robot.pugs.doBomb(res, number);
 		}
-		else if (robot.auth.hasRole(res.message.user, robot.pugbomb.limitedPugBomberRole)){ // User has limited pugbomb permissions
-			if (robot.util.random(robot.pugbomb.pugBombLikelihood) === 0)
-				return robot.pugbomb.doBomb(res, number);
+		else if (robot.auth.hasRole(res.message.user, robot.pugs.limitedPugBomberRole)){ // User has limited pugbomb permissions
+			if (robot.util.random(robot.pugs.pugBombLikelihood) === 0)
+				return robot.pugs.doBomb(res, number);
 			else
-				return robot.pugbomb.denyBomb(res, number);
+				return robot.pugs.denyBomb(res, number);
 		}
 		else{ // User has no pugbomb permissions
-			return robot.pugbomb.denyBomb(res, number);
+			return robot.pugs.denyBomb(res, number);
 		}
 	});
 }
