@@ -1,7 +1,5 @@
 module.exports = function(robot){
 
-	var ventriloquistRole = 'ventriloquist';
-
 	robot.respond(/last beer/i, function(res){
 		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
 		if (robot.auth.isAdmin(res.message.user))
@@ -11,8 +9,13 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/my user( )*id/i, function(res){
+		var response = 'Your user ID is ' + res.message.user.id;
 		if (robot.auth.isAdmin(res.message.user))
-			res.reply('Your user ID is ' + res.message.user.id);
+			res.reply(response);
+		else{
+			robot.ressageRoom(res.message.user.name, response);
+			res.reply('I direct messaged you the answer');
+		}
 	});
 
 	robot.respond(/(.*)'s user( )*id/i, function(res){
@@ -26,8 +29,10 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/my user object/i, function(res){
-		if (robot.auth.isAdmin(res.message.user)){
+		if (robot.auth.isAdmin(res.message.user))
 			res.send(robot.util.formatJson(res.message.user, true));
+		else{
+			robot.messageRoom(res.message.user.name, robot.util.formatJson(res.message.user, true));
 		}
 	});
 
@@ -50,9 +55,12 @@ module.exports = function(robot){
 	});
 
 	robot.respond(/message ([\s\S]+) "(.*)"/i, function(res){
-		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, ventriloquistRole)){
+		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.roles.ventriloquist)){
 			var room = res.match[1].trim(),
 				message = res.match[2].trim();
+
+				if (room[0] === '@' || room === '#')
+					room = room.substring(1);
 
 			robot.messageRoom(room, message);
 			res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
