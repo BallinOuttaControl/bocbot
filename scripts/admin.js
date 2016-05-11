@@ -17,11 +17,11 @@ module.exports = function(robot){
 
 	robot.respond(/(.*)'s user( )*id/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
-			var user = JSON.parse(robot.util.getUser(res.match[2]));
+			var user = robot.util.getUser(res.match[1]);
 			if (!user && user !== null)
 				res.reply('Sorry, I don\'t know of a user called ' + user);
 			else
-				res.reply(user.id);
+				res.reply('Antonio\'s user ID is ' + user.id);
 		}
 	});
 
