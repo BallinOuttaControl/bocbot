@@ -45,6 +45,10 @@ module.exports = function(robot){
 		res.send(res.envelope.room);
 	});
 
+	robot.respond(/who[ ]*am[ ]*i/i, function(res){
+		res.reply('You\'re ' + res.message.user.slack.profile.first_name + '.  @' + res.message.user.name + '.  ID: ' + res.message.user.id);
+	});
+
 	robot.respond(/message ([\s\S]+) "(.*)"/i, function(res){
 		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, ventriloquistRole)){
 			var room = res.match[1].trim(),

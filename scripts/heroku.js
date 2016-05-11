@@ -9,7 +9,10 @@ module.exports = function(robot){
 	robot.respond(/list heroku apps/i, function(res){
 		if (robot.auth.isAdmin(res.message.user)){
 			heroku.apps().list(function(err, apps){
-				res.send(robot.util.formatJson(apps));
+				if (!!err)
+					res.reply('There was an error processing your request');
+
+				res.send(robot.util.formatJson(apps, true));
 			});
 		}
 	});

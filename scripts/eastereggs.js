@@ -63,8 +63,4 @@ module.exports = function(robot){
 		robot.brain.set('totalBeersHad', 0);
 		res.reply('zzzzz');
 	});
-
-	robot.respond(/who[ ]*am[ ]*i/i, function(res){
-		res.reply('You\'re ' + res.message.user.slack.profile.first_name + '.  @' + res.message.user.name + '.  ID: ' + res.message.user.id);
-	});
 }
