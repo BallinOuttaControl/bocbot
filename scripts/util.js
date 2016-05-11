@@ -16,6 +16,10 @@ module.exports = function(robot){
 				return jsonStr.replace(/"/g, '');
 		},
 
+		prettifyJson: function(obj){
+			return this.formatJson(obj, true);
+		},
+
 		getUser: function(userName){
 			if (userName[0] === '@')
 				userName = userName.substring(1);
@@ -46,7 +50,7 @@ module.exports = function(robot){
 
 			// If 'o' is a number, return a random number less than input number
 			if (_.isNumber(o))
-				return Math.floor(Math.random() * o)
+				return Math.floor(Math.random() * o);
 		}
 	};
 }
