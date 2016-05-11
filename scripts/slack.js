@@ -30,7 +30,7 @@ module.exports = function(robot){
 					return;
 				}
 				var bodyJson = JSON.parse(body);
-				res.send(robot.util.formatJson(bodyJson));
+				res.send(robot.util.formatJson(bodyJson, true));
 			});
 		}
 	});
