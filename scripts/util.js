@@ -30,6 +30,12 @@ module.exports = function(robot){
 			return '?' + ret.join('&');
 		},
 
+		capitalize: function(str){
+			if (str.length > 1)
+				return str[0].toUpperCase() + str.substring(1);
+			return str;
+		},
+
 		random: function(o){
 
 			// If 'o' is array, return a random index

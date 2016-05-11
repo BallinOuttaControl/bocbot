@@ -19,6 +19,7 @@ module.exports = function(robot){
 				if (!!err)
 					return response.send('Unable to process request');
 
+				// If site responds with a redirect, get new location and try again
 				if (res.statusCode == 301 || res.statusCode == 302){
 					var loc = res.headers['location'];
 					return self.send(response, loc);
@@ -28,10 +29,10 @@ module.exports = function(robot){
 				var imgUrl = self.getImage(body);
 
 				// If image url is from 'i.minus.com', do the request again because that site no longer works
-				if (imgUrl.contains('i.minus.com'))
+				if (imgUrl.indexOf('i.minus.com') >= 0)
 					return self.send(response);
 
-				response.send(caption[0].toUpperCase() + caption.substring(1) + '\n' + imgUrl);
+				response.send(robot.util.capitalize(caption) + '\n' + imgUrl);
 			});
 		},
 
