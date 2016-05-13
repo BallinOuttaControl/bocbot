@@ -4,6 +4,7 @@ module.exports = function(robot){
 
 	robot.annoy = {
 		greeting: 'Hey, want to hear the most annoying sound in the world?',
+		salutation: 'Okay.  I\'m done.',
 		sessions: {},
 		restrictedChannels: [ 'general', 'random', '' ],
 		sound: {
@@ -61,20 +62,25 @@ module.exports = function(robot){
 			setTimeout(function(){
 				var session = robot.annoy.sessions[room];
 				clearInterval(session.interval);
+				delete robot.annoy.sessions[room];
+				robot.messageRoom(room, this.salutation);
 			}, durationLength);
 		},
 
 		stop: function(room, requester){
 			var session = this.sessions[room];
 
-			if (requester.name === session.annoyer || robot.auth.isAdmin(requester))
+			if (requester.name === session.annoyer || robot.auth.isAdmin(requester)){
 				clearInterval(session.interval);
+				delete this.sessions[room];
+			}
 		},
 
 		stopAll: function(){
 			_.each(robot.annoy.sessions, function(session){
 				clearInterval(session.interval);
 			});
+			this.sessions = {};
 		}
 	};
 	
@@ -153,5 +159,17 @@ module.exports = function(robot){
 			return;
 
 		robot.annoy.stopAll();
+	});
+
+	robot.respond(/current annoyances/i, function(res){
+		var ret = [];
+		_.each(robot.annoy.sessions, function(value, key){
+			ret.push(key + ' is being annoyed by ' + value.annoyer);
+		});
+		
+		if (ret.length > 0)
+			res.send(ret.join('\n'));
+		else
+			res.send('I am not annoying anyone at this time');
 	});
 }
