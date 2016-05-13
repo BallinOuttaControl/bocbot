@@ -4,7 +4,7 @@ module.exports = function(robot){
 
 	robot.annoy = {
 		greeting: 'Hey, want to hear the most annoying sound in the world?',
-		salutation: 'Okay.  I\'m done.',
+		salutation: 'Alright... alright.  I\'m done.',
 		sessions: {},
 		restrictedChannels: [ 'general', 'random', '' ],
 		sound: {
@@ -63,7 +63,7 @@ module.exports = function(robot){
 				var session = robot.annoy.sessions[room];
 				clearInterval(session.interval);
 				delete robot.annoy.sessions[room];
-				robot.messageRoom(room, this.salutation);
+				robot.messageRoom(room, robot.annoy.salutation);
 			}, durationLength);
 		},
 
