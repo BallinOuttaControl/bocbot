@@ -26,6 +26,7 @@
     "hubot-redis-brain": "0.0.3",
     "hubot-scripts": "^2.16.2",
     "hubot-slack": "^3.4.2",
+    "json-stringify-safe": "^5.0.1",
     "swig": "^1.4.2",
     "underscore": "^1.8.3"
   },
