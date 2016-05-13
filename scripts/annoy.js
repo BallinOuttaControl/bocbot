@@ -1,5 +1,4 @@
-var _ = require('underscore'),
-	stringify = require('json-stringify-safe');
+var _ = require('underscore');
 
 module.exports = function(robot){
 
