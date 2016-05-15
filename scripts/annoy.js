@@ -6,7 +6,7 @@ module.exports = function(robot){
 		greeting: 'Hey, want to hear the most annoying sound in the world?',
 		salutation: 'Alright... alright.  I\'m done.',
 		sessions: {},
-		restrictedChannels: [ 'general', 'random', '' ],
+		restrictedChannels: [ 'general', 'random', 'boc-events' ],
 		sound: {
 			chars: ['A', 'E', 'I', 'G', 'H', 'E'],
 			charOccurrenceRates: [
@@ -38,8 +38,11 @@ module.exports = function(robot){
 
 		start: function(room, intervalMs, durationMs, annoyer){
 			var self = this,
-				intervalLength = intervalMs || 1750,
-				durationLength = durationMs || 1000 * 30; // 30 Seconds
+				intervalLength = intervalMs || 1750,	  // 1.75 seconds if interval isn't specified
+				durationLength = durationMs || 1000 * 30; // 30 Seconds if duration is not specified
+
+			if (_.contains(this.restrictedChannels, room))
+				return;
 
 			// Send greeting
 			robot.messageRoom(room, this.greeting);
