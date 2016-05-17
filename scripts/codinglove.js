@@ -11,6 +11,10 @@ module.exports = function(robot){
 		textSelector: 'body .post h3',
 		imageSelector: 'body .post img',
 
+		loadRequestData: function(data){
+			this.$ = cheerio.load(data);
+		},
+
 		send: function(response, location){
 			var self = this,
 				url = !!location ? location : this.url;
@@ -25,8 +29,12 @@ module.exports = function(robot){
 					return self.send(response, loc);
 				}
 
-				var caption = self.getText(body);
-				var imgUrl = self.getImage(body);
+				// Initialize cheerio
+				this.loadRequestData(body);
+
+				// Scrape inportant data from page
+				var caption = self.getText();
+				var imgUrl = self.getImage();
 
 				// If image url is from 'i.minus.com', do the request again because that site no longer works
 				if (imgUrl.indexOf('i.minus.com') >= 0)
@@ -36,13 +44,11 @@ module.exports = function(robot){
 			});
 		},
 
-		getImage: function(body){
-			var $ = cheerio.load(body);
+		getImage: function(){
 			return $(this.imageSelector).first().attr('src');
 		},
 
-		getText: function(body){
-			var $ = cheerio.load(body);
+		getText: function(){
 			return $(this.textSelector).first().text();
 		}
 	};
