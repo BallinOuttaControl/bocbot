@@ -30,7 +30,7 @@ module.exports = function(robot){
 				}
 
 				// Initialize cheerio
-				this.loadRequestData(body);
+				self.loadRequestData(body);
 
 				// Scrape inportant data from page
 				var caption = self.getText();
@@ -45,11 +45,11 @@ module.exports = function(robot){
 		},
 
 		getImage: function(){
-			return $(this.imageSelector).first().attr('src');
+			return this.$(this.imageSelector).first().attr('src');
 		},
 
 		getText: function(){
-			return $(this.textSelector).first().text();
+			return this.$(this.textSelector).first().text();
 		}
 	};
 
