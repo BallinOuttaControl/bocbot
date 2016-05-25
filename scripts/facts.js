@@ -7,7 +7,7 @@ module.exports = function(robot){
 			response.http(apiUrl).get()(function(err, res, body){
 				if (!!err)
 					return;
-				response.send('Did you know: ' + body + '  #bocbotfacts');
+				response.send(body + '  #bocbotfacts');
 			});
 		}
 	};
