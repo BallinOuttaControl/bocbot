@@ -12,7 +12,7 @@ module.exports = function(robot){
 		}
 	};
 
-	robot.hear(/#corbin(.*)fact/i, function(res){
+	robot.hear(/#(.*)fact/i, function(res){
 		robot.facts.sendFact(res);
 	});
 }
