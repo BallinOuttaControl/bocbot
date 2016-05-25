@@ -19,11 +19,16 @@ module.exports = function(robot){
 			var self = this,
 				url = !!location ? location : this.url;
 
+			// - Get a random image from thecodinglove
+			// - Scrape the image url and caption text from the webpage
+			//   - Ignore 'i.minus.com' because it doesn't exist anymore
+			// - Send it
 			response.http(url).get()(function(err, res, body){
 				if (!!err)
 					return response.send('Unable to process request');
 
-				// If site responds with a redirect, get new location and try again
+				// If site responds with a redirect, which it does when you hit '/random', 
+				// get new location from response headers and recurse
 				if (res.statusCode == 301 || res.statusCode == 302){
 					var loc = res.headers['location'];
 					return self.send(response, loc);
@@ -32,7 +37,7 @@ module.exports = function(robot){
 				// Initialize cheerio
 				self.loadRequestData(body);
 
-				// Scrape inportant data from page
+				// Scrape important data from page
 				var caption = self.getText();
 				var imgUrl = self.getImage();
 

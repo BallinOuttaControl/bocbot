@@ -6,9 +6,9 @@ module.exports = function(robot){
 		greeting: 'Hey, want to hear the most annoying sound in the world?',
 		salutation: 'Alright... alright.  I\'m done.',
 		sessions: {},
-		restrictedChannels: [ 'general', 'random', 'boc-events' ],
+		restrictedChannels: [ 'general', 'random', 'boc-events', 'boc-women' ], // Channels we don't ever want annoyed
 		sound: {
-			chars: ['A', 'E', 'I', 'G', 'H', 'E'],
+			chars: ['A', 'E', 'I', 'G', 'H', 'E'],  // Characters that comprise the sound text
 			charOccurrenceRates: [
 				{ char: 'A', min: 10, max: 15 },
 				{ char: 'E', min: 15, max: 20 },
@@ -47,21 +47,21 @@ module.exports = function(robot){
 			// Send greeting
 			robot.messageRoom(room, this.greeting);
 
-			// Set interval
+			// Start annoying
 			var interval = setInterval(function(){
 				robot.messageRoom(room, self.makeSound());
 			}, intervalLength);
 
-			// Create session
+			// Create annoy session
 			var session = {
 				interval: interval,
 				annoyer: annoyer
 			};
 
-			// Save interval so we can clear it later
+			// Save annoy session so we can clear it later
 			this.sessions[room] = session;
 
-			// Set clearInterval to execute at the appropriate time
+			// Set clearInterval to execute and clear the annoy session at the appropriate time
 			setTimeout(function(){
 				var session = robot.annoy.sessions[room];
 				clearInterval(session.interval);
@@ -73,6 +73,8 @@ module.exports = function(robot){
 		stop: function(room, requester){
 			var session = this.sessions[room];
 
+			// If the person requesting stop is the person who started the annoy session or an admin,
+			// clear the session
 			if (requester.name === session.annoyer || robot.auth.isAdmin(requester)){
 				clearInterval(session.interval);
 				delete this.sessions[room];
@@ -80,6 +82,7 @@ module.exports = function(robot){
 		},
 
 		stopAll: function(){
+			// Loop through all the current annoy sessions and clear them
 			_.each(robot.annoy.sessions, function(session){
 				clearInterval(session.interval);
 			});
