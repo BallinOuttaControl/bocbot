@@ -7,6 +7,8 @@ module.exports = function(robot){
 			response.http(apiUrl).get()(function(err, res, body){
 				if (!!err)
 					return;
+				else if (body.indexOf('<html>') > 0)
+					return;
 				response.send(body + '  #bocbotfacts');
 			});
 		}
