@@ -19,7 +19,7 @@ module.exports = function(robot){
 	
 	// Set error callback
 	robot.error(function(err, res){
-		robot.errors.log();
+		robot.errors.log(err);
 	});
 
 	// Make a nonsense error for testing purposes
