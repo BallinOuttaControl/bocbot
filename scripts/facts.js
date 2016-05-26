@@ -8,13 +8,15 @@ module.exports = function(robot){
 	robot.facts = {
 		factApiUrl: 'http://numbersapi.com/random',
 		dateFactApiUrl: 'http://numbersapi.com/{{month}}/{{day}}/date',
+		catFactApiUrl: 'http://catfacts-api.appspot.com/api/facts',
 		factHashTag: '#bocbotfacts',
+		catFactHashTag: '#bocbotcatfacts',
 
 		sendFact: function(response){
 			var self = this;
 			robot.http(this.factApiUrl).get()(function(err, res, body){
 				if (!!err){ // Error processing request
-					robot.error.log(err);
+					robot.errors.log(err);
 					return;
 				}
 				else if (body.indexOf('<html>') > 0) // Request was successful but the site returned an nginx error page
@@ -25,18 +27,35 @@ module.exports = function(robot){
 		},
 
 		sendDateFact: function(response, date){
-			var self = this,
-				date = !!date ? new Date(date) : new Date(),  // If a date was not passed in, use today's date
+			var date = !!date ? new Date(date) : new Date(),  // If a date was not passed in, use today's date
 				month = date.getMonth() + 1,
 				day = date.getDate(),
 				url = this.dateFactApiUrl.replace(/{{month}}/, month).replace(/{{day}}/, day);
 			robot.http(url).get()(function(err, res, body){
 				if (!!err){
-					robot.error.log(err);
+					robot.errors.log(err);
 					return;
 				}
 
 				response.send(body);
+			});
+		},
+
+		sendCatFact: function(response){
+			var self = this;
+			robot.http(this.catFactApiUrl).header('Accept', 'application/json').get()(function(err, res, body){
+				if (!!err){
+					robot.errors.log(err);
+					return;
+				}
+				else if (!body)
+					return;
+
+				var data = JSON.parse(body);
+				if (data.success !== 'true')
+					return;
+
+				response.send(data.facts[0] + '  ' + self.catFactHashTag);
 			});
 		}
 	};
@@ -47,6 +66,10 @@ module.exports = function(robot){
 
 	robot.respond(/(give me a )*(random )*fact/i, function(res){
 		robot.facts.sendFact(res);
+	});
+
+	robot.respond(/(give me a )*(random )*cat fact/i, function(res){
+		robot.facts.sendCatFact(res);
 	});
 
 	robot.respond(/this day in history(.*)/i, function(res){

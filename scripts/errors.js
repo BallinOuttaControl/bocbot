@@ -13,7 +13,7 @@ module.exports = function(robot){
 		// Do error logging
 		log: function(err){
 			robot.logger.error(err);
-			robot.messageRoom(robot.errors.logChannel, robot.errors.createError(err));
+			robot.messageRoom(this.logChannel, this.createError(err));
 		}
 	};
 	
