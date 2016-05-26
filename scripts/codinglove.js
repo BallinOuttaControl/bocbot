@@ -47,6 +47,10 @@ module.exports = function(robot){
 				// If image url is from 'i.minus.com', do the request again because that site no longer works
 				if (imgUrl.indexOf('i.minus.com') >= 0)
 					return self.send(response);
+				
+				// 'tclhost.com' alwawys seems to return '.jpg' files but it has '.gif' files available at the same URL
+				if (imgUrl.indexOf('tclhost.com') >= 0)
+					imgUrl = imgUrl.replace('.jpg', '.gif');
 
 				response.send(robot.util.capitalize(caption) + '\n' + imgUrl);
 			});
