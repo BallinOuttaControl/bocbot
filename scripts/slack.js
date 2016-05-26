@@ -24,6 +24,7 @@ module.exports = function(robot){
 			};
 
 			robot.http(robot.slack.createApiUrl('channels.list', data))
+			.header('Accept', 'application/json')
 			.get()(function(err, response, body){
 				if (!!err){
 					res.reply('ERROR: ' + err);
