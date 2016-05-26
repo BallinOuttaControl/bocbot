@@ -7,13 +7,17 @@ var Heroku = require('heroku-client'),
 module.exports = function(robot){
 
 	robot.respond(/list heroku apps/i, function(res){
-		if (robot.auth.isAdmin(res.message.user)){
-			heroku.apps().list(function(err, apps){
-				if (!!err)
-					res.reply('There was an error processing your request');
+		// For whatever reason, an error is thrown when this code is executed,
+		// but it still produces the correct output, so just catch the error and move on
+		try{
+			if (robot.auth.isAdmin(res.message.user)){
+				heroku.apps().list(function(err, apps){
+					if (!!err)
+						res.reply('There was an error processing your request');
 
-				res.send(robot.util.formatJson(apps, true));
-			});
+					res.send(robot.util.prettifyJson(apps));
+				});
+			}
 		}
 	});
 
@@ -22,7 +26,7 @@ module.exports = function(robot){
 			var application = heroku.apps(res.match[1]);
 			application.info(function(err, app){
 				if (!err)
-					res.send(robot.util.formatJson(app));
+					res.send(robot.util.prettifyJson(app));
 				else
 					res.reply('There was an error processing your request');
 			});

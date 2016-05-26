@@ -30,9 +30,9 @@ module.exports = function(robot){
 
 	robot.respond(/my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user))
-			res.send(robot.util.formatJson(res.message.user, true));
+			res.send(robot.util.prettifyJson(res.message.user));
 		else{
-			robot.messageRoom(res.message.user.name, robot.util.formatJson(res.message.user, true));
+			robot.messageRoom(res.message.user.name, robot.util.prettifyJson(res.message.user));
 		}
 	});
 
@@ -42,7 +42,7 @@ module.exports = function(robot){
 			if (!user && user !== null)
 				res.send('No user by name "' + user + '"');
 			else
-				res.send(robot.util.formatJson(user, true));
+				res.send(robot.util.prettifyJson(user));
 		}
 	});
 
