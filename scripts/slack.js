@@ -26,7 +26,8 @@ module.exports = function(robot){
 			robot.http(robot.slack.createApiUrl('channels.list', data))
 			.get()(function(err, response, body){
 				if (!!err){
-					res.reply('There was an error processing your request');
+					res.reply('ERROR: ' + err);
+					robot.errors.log(err);
 					return;
 				}
 				var bodyJson = JSON.parse(body);

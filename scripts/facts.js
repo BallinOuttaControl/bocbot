@@ -8,8 +8,10 @@ module.exports = function(robot){
 			var self = this,
 				fact = '';
 			robot.http(this.factApiUrl).get()(function(err, res, body){
-				if (!!err) // Error processing request
+				if (!!err){ // Error processing request
+					robot.error.log(err);
 					return;
+				}
 				else if (body.indexOf('<html>') > 0) // Request was successful but the site returned an nginx error page
 					return;
 

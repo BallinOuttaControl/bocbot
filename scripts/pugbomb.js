@@ -19,6 +19,12 @@ module.exports = function(robot){
 
 		doBomb: function(response, numPugs){
 			response.http(robot.pugbomb.pugmeUrl + numPugs).get()(function(err, res, body){
+				if (!!err){
+					response.reply('There was an error getting your pugs.');
+					robot.errors.log(err);
+					return;
+				}
+
 				var pugs = JSON.parse(body).pugs,
 					responses = [];
 				_.each(pugs, function(pug){

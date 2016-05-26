@@ -8,13 +8,18 @@ module.exports = function(robot){
 			var stackTraceLines = err.stack.split('\n');
 			stackTraceLines[0] = '*' + stackTraceLines[0] + '*';
 			return stackTraceLines.join('\n');
+		},
+
+		// Do error logging
+		log: function(err){
+			robot.logger.error(err);
+			robot.messageRoom(robot.errors.logChannel, robot.errors.createError(err));
 		}
 	};
 	
 	// Set error callback
 	robot.error(function(err, res){
-		robot.logger.error(err);
-		robot.messageRoom(robot.errors.logChannel, robot.errors.createError(err));
+		robot.errors.log();
 	});
 
 	// Make a nonsense error for testing purposes

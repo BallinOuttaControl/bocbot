@@ -1,5 +1,5 @@
-var Heroku = require('heroku-client'),
-	heroku = new Heroku({ token: process.env.HEROKU_API_KEY }),
+var HerokuClient = require('heroku-client'),
+	heroku = new HerokuClient({ token: process.env.HEROKU_API_KEY }),
 	pipelineID = process.env.HEROKU_PIPELINE_ID,
 	sourceAppID = process.env.HEROKU_STAGING_APP_ID,
 	prodAppID = process.env.HEROKU_PRODUCTION_APP_ID;
@@ -7,17 +7,16 @@ var Heroku = require('heroku-client'),
 module.exports = function(robot){
 
 	robot.respond(/list heroku apps/i, function(res){
-		// For whatever reason, an error is thrown when this code is executed,
-		// but it still produces the correct output, so just catch the error and move on
-		try{
-			if (robot.auth.isAdmin(res.message.user)){
-				heroku.apps().list(function(err, apps){
-					if (!!err)
-						res.reply('There was an error processing your request');
+		if (robot.auth.isAdmin(res.message.user)){
+			heroku.apps().list(function(err, apps){
+				if (!!err){
+					res.reply('ERROR: ' + err);
+					robot.errors.log(err);
+					return;
+				}
 
-					res.send(robot.util.prettifyJson(apps));
-				});
-			}
+				res.send(robot.util.prettifyJson(apps));
+			});
 		}
 	});
 
@@ -27,8 +26,10 @@ module.exports = function(robot){
 			application.info(function(err, app){
 				if (!err)
 					res.send(robot.util.prettifyJson(app));
-				else
-					res.reply('There was an error processing your request');
+				else{
+					res.reply('ERROR: ' + err);
+					robot.errors.log(err);
+				}
 			});
 		}
 	});
@@ -53,8 +54,10 @@ module.exports = function(robot){
 				]
 			},
 			function(err, app){
-				if(!!err)
-					res.reply('There was an error processing your request');
+				if(!!err){
+					res.reply('ERROR: ' + err);
+					robot.errors.log(err);
+				}
 				else
 					res.reply('Promotion initiated');
 			});

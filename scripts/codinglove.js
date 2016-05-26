@@ -24,8 +24,11 @@ module.exports = function(robot){
 			//   - Ignore 'i.minus.com' because it doesn't exist anymore
 			// - Send it
 			response.http(url).get()(function(err, res, body){
-				if (!!err)
-					return response.send('Unable to process request');
+				if (!!err){
+					response.send('Unable to get meme from thecodinglove.com');
+					robot.errors.log(err);
+					return;
+				}
 
 				// If site responds with a redirect, which it does when you hit '/random', 
 				// get new location from response headers and recurse
