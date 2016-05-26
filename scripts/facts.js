@@ -1,15 +1,19 @@
 module.exports = function(robot){
 
 	robot.facts = {
+		factApiUrl: 'http://numbersapi.com/random',
+		factHashTag: '#bocbotfacts',
+
 		sendFact: function(response){
-			var apiUrl = 'http://numbersapi.com/random',
+			var self = this,
 				fact = '';
-			response.http(apiUrl).get()(function(err, res, body){
-				if (!!err)
+			robot.http(this.factApiUrl).get()(function(err, res, body){
+				if (!!err) // Error processing request
 					return;
-				else if (body.indexOf('<html>') > 0)
+				else if (body.indexOf('<html>') > 0) // Request was successful but the site returned an nginx error page
 					return;
-				response.send(body + '  #bocbotfacts');
+
+				response.send(body + '  ' + self.factHashTag);
 			});
 		}
 	};
