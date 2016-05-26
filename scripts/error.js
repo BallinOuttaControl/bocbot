@@ -1,11 +1,10 @@
 module.exports = function(robot){
 
 	robot.errors = {
-		imageUrl: 'http://i.imgur.com/1QXZmWG.jpg',
 		logChannel: 'bocbot-errors',
 
 		// Get the stack trace and bold the error message before sending
-		createError: function(err, res){
+		createError: function(err){
 			var stackTraceLines = err.stack.split('\n');
 			stackTraceLines[0] = '*' + stackTraceLines[0] + '*';
 			return stackTraceLines.join('\n');
