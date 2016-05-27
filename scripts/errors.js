@@ -4,16 +4,23 @@ module.exports = function(robot){
 		logChannel: 'bocbot-errors',
 
 		// Get the stack trace and bold the error message before sending
-		createError: function(err){
-			var stackTraceLines = err.stack.split('\n');
-			stackTraceLines[0] = '*' + stackTraceLines[0] + '*';
-			return stackTraceLines.join('\n');
+		formatError: function(err){
+			var lines = [];
+			if (!!err.stack)
+				lines = err.stack.split('\n');
+			else if (err.indexOf('\n') >= 0)
+				lines = err.split('\n');
+
+			lines[0] = '*' + lines[0] + '*';
+
+			return lines.join('\n')
 		},
 
 		// Do error logging
 		log: function(err){
 			robot.logger.error(err);
-			robot.messageRoom(this.logChannel, this.createError(err));
+			var formattedErrMsg = this.formatError(err);
+			robot.messageRoom(this.logChannel, formattedErrMsg);
 		}
 	};
 	
