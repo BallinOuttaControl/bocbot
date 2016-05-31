@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+{% include "../views/partials/ghbanner.swig" %}
 <div class="cover-image">
 	<img src="/static/img/hubot.png" alt="hubot" />
 </div>
