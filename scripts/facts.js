@@ -1,7 +1,8 @@
 // Commands:
-//   bocbot [give me a ][random ] fact - Gets a random fact
+//   bocbot [give me a ][random] fact - Gets a random fact
 //   bocbot this day in history - Gets a random historical fact about today's date
 //   bocbot this day in history <date> - Gets a random historical fact about the specified date
+//   bocbot [give me a ][random] cat fact - Gets a random cat fact
 
 module.exports = function(robot){
 
