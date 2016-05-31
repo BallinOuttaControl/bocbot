@@ -6,11 +6,14 @@ module.exports = function(robot){
 		// Get the stack trace and bold the error message before sending
 		formatError: function(err){
 			var lines = [];
-			if (!!err.stack)
+			if (!!err.stack) // 'err' is error object with stack trace
 				lines = err.stack.split('\n');
-			else if (err.indexOf('\n') >= 0)
+			else if (err.indexOf('\n') >= 0) // 'err' is just an array of strings
 				lines = err.split('\n');
+			else // Error is just a string
+				lines = [err];
 
+			// Bold first line of array
 			lines[0] = '*' + lines[0] + '*';
 
 			return lines.join('\n')
