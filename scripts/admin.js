@@ -66,4 +66,8 @@ module.exports = function(robot){
 			res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
 		}
 	});
+
+	robot.respond(/(create(( me)? a)?|new|generate(( me)? a)?|make (me )?a) guid/i, function(res){
+		res.send('`' + robot.util.generateGuid() + '`');
+	});
 }

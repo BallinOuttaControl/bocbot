@@ -51,6 +51,16 @@ module.exports = function(robot){
 			// If 'o' is a number, return a random number less than input number
 			if (_.isNumber(o))
 				return Math.floor(Math.random() * o);
+		},
+
+		generateGuid: function(){
+			var date = new Date().getTime();
+			var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+				var random = (date + Math.random() * 16) % 16 | 0;
+				date = Math.floor(date / 16);
+				return (c == 'x' ? random : (random & 0x3 | 0x8)).toString(16);
+			});
+			return guid;
 		}
 	};
 }
