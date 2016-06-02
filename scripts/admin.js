@@ -66,8 +66,14 @@ module.exports = function(robot){
 				if (room[0] === '@' || room === '#')
 					room = room.substring(1);
 
-			robot.messageRoom(room, message);
-			res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
+			try{
+				robot.messageRoom(room, message);
+				res.reply(robot.name + ' successfully said "' + message + '" in ' + room);
+			}
+			catch (error){
+				robot.errors.log(error);
+				res.reply('There was an error saying "' + message + '" in ' + room);
+			}
 		}
 	});
 
