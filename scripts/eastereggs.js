@@ -23,7 +23,7 @@ module.exports = function(robot){
 		"I'm trashed"
 	];
 
-	robot.respond(/thank(s| you)/i, function(res){
+	robot.hear(/thank(s| you) bocbot/i, function(res){
 		res.random(thankYouResponses);
 	});
 
