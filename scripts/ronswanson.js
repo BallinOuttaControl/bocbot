@@ -1,11 +1,11 @@
 // Commands:
-//   ron swanson [quote] - Get a quote from Ron Swanson
-//   ron swanson [quote] <number> - Get the specified number of quotes from Ron Swanson
+//   bocbot ron swanson [quote] - Get a quote from Ron Swanson
+//   bocbot ron swanson [quote] <number> - Get the specified number of quotes from Ron Swanson
 
 var _ = require('underscore');
 
 module.exports = function(robot){
-	
+
 	robot.ronswanson = {
 		apiUrl: 'http://ron-swanson-quotes.herokuapp.com/v2/quotes',
 
