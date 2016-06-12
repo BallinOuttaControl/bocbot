@@ -28,7 +28,7 @@ module.exports = function(robot){
 			if (!user && user !== null)
 				res.reply('Sorry, I don\'t know of a user called ' + user);
 			else
-				res.reply('Antonio\'s user ID is ' + user.id);
+				res.reply('Their user ID is ' + user.id);
 		}
 	});
 
