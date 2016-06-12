@@ -54,12 +54,22 @@ module.exports = function(robot){
 		},
 
 		generateGuid: function(){
+
+			// Get date to use as seed for random number generator
 			var date = new Date().getTime();
-			var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+
+			// Create a Version 4 UUID (GUID)
+			//   Version 4 UUIDs use a scheme relying only on random numbers.
+			//   This algorithm sets the version number (4 bits) as well as two reserved bits.
+			//   All other bits (the remaining 122 bits) are set using a random or pseudorandom data source.
+			//   Version 4 UUIDs have the form xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where x is any
+			//   hexadecimal digit and y is one of 8, 9, a, or b (e.g., f47ac10b-58cc-4372-a567-0e02b2c3d479).
+			var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(char) {
 				var random = (date + Math.random() * 16) % 16 | 0;
 				date = Math.floor(date / 16);
-				return (c == 'x' ? random : (random & 0x3 | 0x8)).toString(16);
+				return (char == 'x' ? random : (random & 0x3 | 0x8)).toString(16);
 			});
+
 			return guid;
 		}
 	};
