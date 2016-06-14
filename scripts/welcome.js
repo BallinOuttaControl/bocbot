@@ -39,33 +39,11 @@ module.exports = function(robot){
 		}
 	};
 
-	robot.respond(/remove connor/i, function(res){
-		var users = robot.brain.getObject('KnownUsers');
-		res.send(robot.util.prettifyJson(users));
-		var index = users.indexOf('U10HENG04');
-		users.splice(index, 1);
-		robot.brain.setObject('KnownUsers', users);
-		res.send(robot.util.prettifyJson(robot.brain.getObject('KnownUsers')));
-	});
-
 	robot.enter(function(res){
 		robot.welcome.roomEntrance(res.message.user, res.message.room);
 	});
 
-	// robot.respond(/testwelcome/i, function(res){
-	// 	var jsonStr = robot.util.prettifyJson(res.message.room);
-	// 	res.send(jsonStr);
-	// 	if (robot.welcome.isNewUser(res.message.user))
-	// 		res.send(res.message.user.name + ' IS a new user');
-	// 	else
-	// 		res.send(res.message.user.name + ' IS NOT a new user');
-	// });
-
 	robot.respond(/set known users/i, function(res){
 		robot.welcome.setKnownUsers();
 	});
-
-	// robot.respond(/get known users/i, function(res){
-	// 	res.send(robot.util.prettifyJson(robot.welcome.getKnownUsers()));
-	// });
 }
