@@ -61,9 +61,9 @@ module.exports = function(robot){
 	// 		res.send(res.message.user.name + ' IS NOT a new user');
 	// });
 
-	// robot.respond(/set known users/i, function(res){
-	// 	robot.welcome.setKnownUsers();
-	// });
+	robot.respond(/set known users/i, function(res){
+		robot.welcome.setKnownUsers();
+	});
 
 	// robot.respond(/get known users/i, function(res){
 	// 	res.send(robot.util.prettifyJson(robot.welcome.getKnownUsers()));
