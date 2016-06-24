@@ -36,10 +36,10 @@ module.exports = function(robot){
 			return sound;
 		},
 
-		start: function(room, intervalMs, durationMs, annoyer){
+		start: function(room, annoyer, intervalMs, durationMs){
 			var self = this,
-				intervalLength = intervalMs || 1750,	  // 1.75 seconds if interval isn't specified
-				durationLength = durationMs || 1000 * 30; // 30 Seconds if duration is not specified
+				intervalLength = intervalMs || 2500,	  // 2.5 seconds if interval isn't specified
+				durationLength = durationMs || 1000 * 45; // 45 Seconds if duration is not specified
 
 			if (_.contains(this.restrictedChannels, room))
 				return;
@@ -73,9 +73,10 @@ module.exports = function(robot){
 		stop: function(room, requester){
 			var session = this.sessions[room];
 
+			var isUserCurrentlyBeingAnnoyed = room === requester.room;
 			// If the person requesting stop is the person who started the annoy session or an admin,
 			// clear the session
-			if (requester.name === session.annoyer || robot.auth.isAdmin(requester)){
+			if (isUserCurrentlyBeingAnnoyed || robot.auth.isAdmin(requester) || requester.name === session.annoyer){
 				clearInterval(session.interval);
 				delete this.sessions[room];
 			}
@@ -89,7 +90,7 @@ module.exports = function(robot){
 			this.sessions = {};
 		}
 	};
-	
+
 	// This function tries its best to match all common language scheduling syntaxes
 	// For example:
 	//	annoy me
@@ -144,7 +145,7 @@ module.exports = function(robot){
 				user = user.substring(1);
 		}
 
-		robot.annoy.start(user, '', '', res.message.user.name);
+		robot.annoy.start(user, res.message.user.name);
 	});
 
 	robot.respond(/stop annoying (.*)/i, function(res){
@@ -153,6 +154,8 @@ module.exports = function(robot){
 			res.reply('You must specify a room');
 		else{
 			room = room.trim();
+			if (room === 'me')
+				room = res.message.user.name;
 			if (room[0] === '#' || room[0] === '@')
 				room = room.substring(1);
 		}
@@ -172,7 +175,7 @@ module.exports = function(robot){
 		_.each(robot.annoy.sessions, function(value, key){
 			ret.push(key + ' is being annoyed by ' + value.annoyer);
 		});
-		
+
 		if (ret.length > 0)
 			res.send(ret.join('\n'));
 		else
