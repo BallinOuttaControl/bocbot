@@ -4,7 +4,10 @@ module.exports = function(robot){
 
 	robot.welcome = {
 
-		welcomeMessage: "*Hello {{user}}!*\nWelcome to BOC's Slack!  I'm *bocbot*.  Pleased to make your acquaintance!\nYou can type `bocbot help` to learn what I can do.",
+		welcomeMessage: "*Hello {{user}}!*\n" +
+						"Welcome to BOC's Slack!  I'm *bocbot*.  Pleased to make your acquaintance!\n" +
+						"We have lots of channels so come on in and make yourself at home." +
+						"If you have any questions about me or what I can do, you can type `bocbot help` or just DM me `help`.",
 
 		// Sets all the users that bocbot currently knows about as 'KnownUsers'
 		setKnownUsers: function(){
