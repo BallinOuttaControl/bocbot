@@ -35,9 +35,8 @@ module.exports = function(robot){
 	robot.respond(/my user object/i, function(res){
 		if (robot.auth.isAdmin(res.message.user))
 			res.send(robot.util.prettifyJson(res.message.user));
-		else{
+		else
 			robot.messageRoom(res.message.user.name, robot.util.prettifyJson(res.message.user));
-		}
 	});
 
 	robot.respond(/(.*)'s user object/i, function(res){
@@ -63,7 +62,7 @@ module.exports = function(robot){
 			var room = res.match[1].trim(),
 				message = res.match[2].trim();
 
-				if (room[0] === '@' || room === '#')
+				if (room[0] === '@' || room[0] === '#')
 					room = room.substring(1);
 
 			try{
