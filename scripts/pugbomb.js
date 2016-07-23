@@ -8,7 +8,7 @@ module.exports = function(robot){
 
 	robot.pugbomb = {
 		pugmeUrl: 'http://pugme.herokuapp.com/bomb?count=',
-		pugBombLikelihood: 5, // Pug bomb will happen one in this many times
+		pugBombLikelihood: 2, // Odds of pugbomb happening (rand() % this_number)
 		pugBombReplies: [
 			'Take your {{number}} pugs elsewhere.',
 			'Nope.  Nobody needs to see that many pugs.',

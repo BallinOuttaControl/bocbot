@@ -1,9 +1,12 @@
-node_modules
-.DS_Store*
+# Hubot
 .hubot_history
+
+# Environment variable files
 .env
 
-=======
+# WebStorm
+.idea/
+
 # Logs
 logs
 *.log
@@ -37,3 +40,6 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# OS X
+.DS_Store*
