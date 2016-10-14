@@ -6,7 +6,7 @@ module.exports = function(robot){
 
 		welcomeMessage: "*Hello {{user}}!*\n" +
 						"Welcome to BOC's Slack!  I'm *bocbot*.  Pleased to make your acquaintance!\n" +
-						"We have lots of channels so come on in and make yourself at home." +
+						"We have lots of channels so come on in and make yourself at home.  " +
 						"If you have any questions about me or what I can do, you can type `bocbot help` or just DM me `help`.",
 
 		// Sets all the users that bocbot currently knows about as 'KnownUsers'
@@ -25,10 +25,7 @@ module.exports = function(robot){
 		// Checks to see if a user is new
 		isNewUser: function(user){
 			var users = robot.brain.getObject('KnownUsers');
-			if (!_.contains(users, user.id))
-				return true;
-			else
-				return false;
+			return !_.contains(users, user.id);
 		},
 
 		// Handles a user entering a room
