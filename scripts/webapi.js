@@ -17,4 +17,4 @@ module.exports = function(robot){
 	// 	res.send(robot.util.formatJson(users, null, '\t'));
 	// });
 
-}
+};

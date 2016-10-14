@@ -8,7 +8,7 @@ module.exports = function(robot){
 		webDirPath = path.join(__dirname, '../', 'web'),
 		staticFilesDir = path.join(webDirPath, 'static'),
 		viewsDirPath = path.join(webDirPath, 'views');
-	
+
 	// Configure robot.router
 	robot.router.engine('swig', swig.renderFile);
 	robot.router.set('view engine', 'swig');
@@ -25,9 +25,13 @@ module.exports = function(robot){
 		res.redirect('/'); // Redirect '/index' to '/'
 	});
 
+	// Serve admin page
+	robot.router.get('/admin', (req, res) => {
+		res.render('admin');
+	});
+
 	// Serve error page
 	robot.router.get('/error', function (req, res){
 		res.render('error');
 	});
-
-}
+};
