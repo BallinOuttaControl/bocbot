@@ -17,7 +17,7 @@ module.exports = function(robot){
 		if (robot.auth.isAdmin(res.message.user))
 			res.reply(response);
 		else{
-			robot.ressageRoom(res.message.user.name, response);
+			robot.messageRoom(res.message.user.name, response);
 			res.reply('I direct messaged you the answer');
 		}
 	});
