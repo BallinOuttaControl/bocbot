@@ -1,11 +1,17 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+	crypto = require('crypto');
 
 module.exports = function(robot){
 
 	robot.util = {
 
 		params: {
-			jsonSpace: '\t'
+			jsonSpace: '\t',
+			tokenSizeBytes: 64
+		},
+
+		generateToken: (callback) => {
+			crypto.randomBytes(robot.util.params.tokenSizeBytes, callback);
 		},
 
 		formatJson: function(obj, pretty){

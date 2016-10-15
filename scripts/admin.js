@@ -2,7 +2,17 @@
 //   bocbot [whoami|who am i] - find out who you are
 //   bocbot [new|create|generate|make][ me ][ a ] guid - get a new guid
 
+var base64 = require('../lib/base64');
+
 module.exports = function(robot){
+
+	robot.respond(/adminlink/i, (res) => {
+		robot.util.generateToken((err, buffer) => {
+			var token = base64.encode(buffer);
+			var userid = base64.encode(res.message.user.id);
+			res.reply(`http://localhost:8080/admin/${userid}/${token}`);
+		});
+	});
 
 	robot.respond(/last beer/i, function(res){
 		var response = 'My last beer was from ' + robot.brain.get('lastBeerFrom');
