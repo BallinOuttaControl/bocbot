@@ -9,7 +9,7 @@ module.exports = function(robot){
 		res.send('OK');
 	});
 
-	// Commented out becasue we don't want to serve out sensitive information
+	// Commented out because we don't want to serve out sensitive information
 	// This is just here for testing and example purposes
 	// robot.router.get('/users', function(req, res){
 	// 	var users = robot.brain.users();
