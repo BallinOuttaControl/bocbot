@@ -1,11 +1,35 @@
 var path = require('path'),
 	express = require('express'),
 	swig = require('swig');
+	lex = require('letsencrypt-express');
+
+// Set up SSL
+var ssl = lex.create({
+	server: 'staging',  // https://acme-v01.api.letsencrypt.org/directory
+	configDir: 'ssl',
+	approveDomains: (opts, certs, cb) => {
+		if (certs)
+			opts.domains = certs.altnames;
+		else{
+			_.extend(opts, {
+				agreeTos: true,
+				email: 'cjtkennedy@gmail.com',
+				domains: [
+					'bocbot.tk'
+				]
+			});
+		}
+
+		cb(null, {
+			options: opts,
+			certs: certs
+		});
+	}
+});
 
 module.exports = function(robot){
 
-	var compressCss = false,
-		webDirPath = path.join(__dirname, '../', 'web'),
+	var webDirPath = path.join(__dirname, '../', 'web'),
 		staticFilesDir = path.join(webDirPath, 'static'),
 		viewsDirPath = path.join(webDirPath, 'views');
 
@@ -13,6 +37,9 @@ module.exports = function(robot){
 	robot.router.engine('swig', swig.renderFile);
 	robot.router.set('view engine', 'swig');
 	robot.router.set('views', viewsDirPath);
+
+	// Configure ssl middleware
+	ssl.middleware(robot.router);
 
 	// Serve static files
 	robot.router.use('/static', express.static(staticFilesDir));
