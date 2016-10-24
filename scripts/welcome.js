@@ -25,7 +25,10 @@ module.exports = function(robot){
 		// Checks to see if a user is new
 		isNewUser: function(user){
 			var users = robot.brain.getObject('KnownUsers');
-			return !_.contains(users, user.id);
+			if (!_.contains(users, user.id))
+				return true;
+			else
+				return false;
 		},
 
 		// Handles a user entering a room
