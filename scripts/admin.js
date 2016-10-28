@@ -6,6 +6,9 @@ var base64 = require('../lib/base64');
 module.exports = function(robot){
 
 	robot.respond(/adminlink/i, (res) => {
+		if (!robot.auth.isAdmin(res.message.user))
+			return;
+
 		robot.util.generateToken((err, buffer) => {
 			var token = base64.encode(buffer);
 			var userid = base64.encode(res.message.user.id);
