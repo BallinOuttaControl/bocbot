@@ -85,8 +85,4 @@ module.exports = function(robot){
 			}
 		}
 	});
-
-	robot.respond(/(new|(create|generate|make)(( me)? a)?) guid/i, function(res){
-		res.send('`' + robot.util.generateGuid() + '`');
-	});
 }
