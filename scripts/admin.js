@@ -12,7 +12,7 @@ module.exports = function(robot){
 		robot.util.generateToken((err, buffer) => {
 			var token = base64.encode(buffer);
 			var userid = base64.encode(res.message.user.id);
-			var baseUrl = process.end.HEROKU_URL || 'localhost:8080';
+			var baseUrl = process.env.HEROKU_URL || 'localhost:8080';
 			res.reply(`http://${baseUrl}/admin/${userid}/${token}`);
 		});
 	});
