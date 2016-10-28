@@ -1,16 +1,19 @@
 // Commands:
 //   bocbot [whoami|who am i] - find out who you are
-//   bocbot [new|create|generate|make][ me ][ a ] guid - get a new guid
 
 var base64 = require('../lib/base64');
 
 module.exports = function(robot){
 
 	robot.respond(/adminlink/i, (res) => {
+		if (!robot.auth.isAdmin(res.message.user))
+			return;
+
 		robot.util.generateToken((err, buffer) => {
 			var token = base64.encode(buffer);
 			var userid = base64.encode(res.message.user.id);
-			res.reply(`http://localhost:8080/admin/${userid}/${token}`);
+			var baseUrl = process.env.HEROKU_URL || 'localhost:8080';
+			res.reply(`http://${baseUrl}/admin/${userid}/${token}`);
 		});
 	});
 
@@ -84,9 +87,5 @@ module.exports = function(robot){
 				res.reply('There was an error saying "' + message + '" in ' + room);
 			}
 		}
-	});
-
-	robot.respond(/(new|(create|generate|make)(( me)? a)?) guid/i, function(res){
-		res.send('`' + robot.util.generateGuid() + '`');
 	});
 }

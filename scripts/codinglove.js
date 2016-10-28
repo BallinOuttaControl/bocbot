@@ -4,7 +4,7 @@
 var cheerio = require('cheerio');
 
 module.exports = function(robot){
-	
+
 	robot.codinglove = {
 
 		url: 'http://thecodinglove.com/random',
@@ -30,7 +30,7 @@ module.exports = function(robot){
 					return;
 				}
 
-				// If site responds with a redirect, which it does when you hit '/random', 
+				// If site responds with a redirect, which it does when you hit '/random',
 				// get new location from response headers and recurse
 				if (res.statusCode == 301 || res.statusCode == 302){
 					var loc = res.headers['location'];
@@ -47,7 +47,7 @@ module.exports = function(robot){
 				// If image url is from 'i.minus.com', do the request again because that site no longer works
 				if (imgUrl.indexOf('i.minus.com') >= 0)
 					return self.send(response);
-				
+
 				// 'tclhost.com' alwawys seems to return '.jpg' files but it has '.gif' files available at the same URL
 				if (imgUrl.indexOf('tclhost.com') >= 0)
 					imgUrl = imgUrl.replace('.jpg', '.gif');
@@ -65,7 +65,8 @@ module.exports = function(robot){
 		}
 	};
 
-	robot.respond(/((give me|spread) some )?(joy|love)/i, function(res){
+	// TODO: Implement the ability to get a number of these: (give me|spread) (some )?(joy|love)( \d+)?
+	robot.respond(/(give me|spread) (some )?(joy|love)/i, function(res){
 		robot.codinglove.send(res);
 	});
 }
