@@ -1,6 +1,5 @@
 // Commands:
 //   bocbot [whoami|who am i] - find out who you are
-//   bocbot [new|create|generate|make][ me ][ a ] guid - get a new guid
 
 var base64 = require('../lib/base64');
 

@@ -1,3 +1,6 @@
+// Commands:
+//   bocbot [new|create|generate|make][ me ][ a ] guid - get a new guid
+
 var _ = require('underscore'),
 	crypto = require('crypto');
 
