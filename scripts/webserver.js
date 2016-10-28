@@ -1,6 +1,7 @@
 var path = require('path'),
+	base64 = require('../lib/base64'),
 	express = require('express'),
-	swig = require('swig');
+	swig = require('swig'),
 	lex = require('letsencrypt-express');
 
 // Set up SSL
@@ -53,7 +54,10 @@ module.exports = function(robot){
 	});
 
 	// Serve admin page
-	robot.router.get('/admin', (req, res) => {
+	robot.router.get('/admin/:userid/:token', (req, res) => {
+		var userid = base64.decode(req.params.userid).toString();
+		var token = base64.decode(req.params.token).toString('base64');
+		console.log(`userid = ${userid}  |  token = ${token}`);
 		res.render('admin');
 	});
 
