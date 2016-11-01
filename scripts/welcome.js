@@ -26,6 +26,9 @@ module.exports = function(robot){
 						robot.messageRoom('bocbot-logs', `A user named '${e.user.name || 'just kidding I don\'t know the mame'}' joined but is bot... not welcoming them`);
 						return;
 					}
+					else{
+						robot.messageRoom('bocbot-logs', `A user named '${e.user.name || 'just kidding I don\'t know the mame'}' joined`);
+					}
 
 					var name = e.user.real_name || e.user.name;
 					var message = robot.welcome.welcomeMessage.replace(/{{user}}/g, name);
