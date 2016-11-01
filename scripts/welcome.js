@@ -22,8 +22,10 @@ module.exports = function(robot){
 				handler: (e) => {
 
 					// I don't think we need to welcome bots
-					if (e.user.is_bot)
+					if (e.user.is_bot) {
+						robot.messageRoom('bocbot-logs', `A user named '${e.user.name || 'just kidding I don\'t know the mame'}' joined but is bot... not welcoming them`);
 						return;
+					}
 
 					var name = e.user.real_name || e.user.name;
 					var message = robot.welcome.welcomeMessage.replace(/{{user}}/g, name);
