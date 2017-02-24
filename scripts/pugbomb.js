@@ -43,17 +43,17 @@ module.exports = function(robot){
 
 	robot.respond(/pug bomb( (\d+))?/i, function(res){
 		var number = res.match[2] || 3;
-		if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.roles.pugBomber)){ // User has full pugbomb permissons
+		// if (robot.auth.isAdmin(res.message.user) || robot.auth.hasRole(res.message.user, robot.roles.pugBomber)){ // User has full pugbomb permissons
 			return robot.pugbomb.doBomb(res, number);
-		}
-		else if (robot.auth.hasRole(res.message.user, robot.roles.limitedPugBomber)){ // User has limited pugbomb permissions
-			if (robot.util.random(robot.pugbomb.pugBombLikelihood) === 0)
-				return robot.pugbomb.doBomb(res, number);
-			else
-				return robot.pugbomb.denyBomb(res, number);
-		}
-		else{ // User has no pugbomb permissions
-			return robot.pugbomb.denyBomb(res, number);
-		}
+		// }
+		// else if (robot.auth.hasRole(res.message.user, robot.roles.limitedPugBomber)){ // User has limited pugbomb permissions
+		// 	if (robot.util.random(robot.pugbomb.pugBombLikelihood) === 0)
+		// 		return robot.pugbomb.doBomb(res, number);
+		// 	else
+		// 		return robot.pugbomb.denyBomb(res, number);
+		// }
+		// else{ // User has no pugbomb permissions
+		// 	return robot.pugbomb.denyBomb(res, number);
+		// }
 	});
 }
