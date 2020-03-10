@@ -1,6 +1,6 @@
 var path = require('path'),
 	express = require('express'),
-	swig = require('swig'),
+	swig = require('swig-templates'),
 	base64 = require('../lib/base64');
 
 module.exports = function(robot){
